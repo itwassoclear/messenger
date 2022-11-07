@@ -1,0 +1,34 @@
+@color-text: #1e1e1e;
+@color-text-gray: #999999;
+@color-primary: #5d4d84;
+@color-primary-hover: #574585;
+@color-error: #d71616;
+@color-bg: #fbfbfb;
+@color-input: #efefef;
+@color-border: #eaeaea;
+
+@border-radius: 8px;
+@input-border-radius: 5px;
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+}
+
+.button-primary {
+  width: 280px;
+  height: 37px;
+  background: @color-primary;
+  border-radius: @border-radius;
+  border: none;
+  color: #fff;
+  margin: 0 auto;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @color-primary-hover;
+  }
+}

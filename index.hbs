@@ -1,17 +1,71 @@
 ---
-id: 'root'
+pointer: './static/pointer.svg'
+messages: [
+{ avatar: '', name: 'Sasha', message: 'sticker', date: '15:04', new-messages: '1', from: '' },
+{ avatar: '', name: 'Peter', message: 'We will definitely discuss this at our next meeting', date: '14:20',
+new-messages: '', from: ''},
+{ avatar: '', name: 'Reddit', message: 'meet friday in good company', date: '14:00', new-messages: '3', from: ''},
+{ avatar: '', name: 'Anna', message: 'sorry i`ll write later', date: 'Thu', new-messages: '', from: 'Me: '},
+]
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="src/index.js" type="module"></script>
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="{{ id }}"></div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+  <script src="./src/index.js" type="module"></script>
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <main id="chats">
+
+    <div class="feed">
+      <a href="./src/pages/profile.hbs" class="profile-link">Profile <svg width="6" height="10" viewBox="0 0 6 10"
+          fill="none" class="button-icon">
+          <path d="M1 9L5 5L1 1" stroke="#999999" />
+        </svg>
+      </a>
+      <input type="text" name="search" id="search" placeholder="Search" class="search">
+
+      {{#each messages as | item |}}
+      <div class="preview">
+        <div class="avatar"></div>
+        <div>
+          <p class="name">{{ item.name }}</p>
+          <div class="content">
+            {{#if item.from}}
+            <p class="from">{{ item.from}}</p> {{/if}}<p class="message"> {{ item.message }}</p>
+          </div>
+
+        </div>
+
+        <div class="date-block">
+          <p class="date">{{ item.date }}</p>
+          {{#if item.new-messages}}
+          <div class="unread">
+            <p class="number">{{ item.new-messages }}</p>
+          </div>
+
+          {{/if}}
+
+        </div>
+      </div>
+      {{/each }}
+
+    </div>
+
+    <div class="messages">
+      <p class="text">Select the chat to send a message</p>
+    </div>
+  </main>
+
+</body>
+
 </html>

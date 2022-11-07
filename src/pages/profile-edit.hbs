@@ -1,0 +1,70 @@
+---
+back_button: '../../static/back-button.svg'
+title: 'Messenger'
+avatar: '../../static/avatar.svg'
+name: 'Maria'
+fields: [
+{ label: 'Email', data: 'itwassoclear@gmail.com', field_name: 'email' },
+{ label: 'Login', data: 'itwassoclear', field_name: 'login' },
+{ label: 'First name', data: 'Maria', field_name: 'first_name' },
+{ label: 'Last name', data: 'Kotliarova', field_name: 'second_name' },
+{ label: 'Chat name', data: 'Maria', field_name: 'display_name' },
+{ label: 'Phone', data: '89998887776', field_name: 'phone' },
+]
+
+edit_profile: 'Edit profile'
+edit_password: 'Change password'
+exit_button: 'Log out'
+---
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="profile.js" type="module"></script>
+  <title>{{ title }}</title>
+</head>
+
+<body>
+
+  <div id="profile">
+    <div class="back_block">
+      <a href="./profile.hbs"><img src="{{ back_button }}" alt="Go back to feed"></a>
+    </div>
+    <div class="profile_block">
+      <div class="avatar">
+        <div class="plug">
+          <p class="avatar-text">
+            Change avatar
+          </p>
+          <div class="circle"></div>
+        </div>
+        <img src="{{ avatar }}" alt="Profile photo">
+      </div>
+
+      <p class="name">{{ name }}</p>
+
+      <div class="data">
+
+        {{#each fields as | item |}}
+        <div class="string">
+          <p class="label">{{ item.label }}</p>
+          <p class="profile_data">{{ item.data }}</p>
+        </div>
+        {{/each }}
+
+      </div>
+
+      <div class="buttons">
+        {{>button name='Save'}}
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

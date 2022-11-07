@@ -1,0 +1,109 @@
+@import '../styles//default_style.less';
+
+#profile {
+  display: flex;
+  width: 100%;
+  color: @color-text;
+}
+
+.back_block {
+  width: 54px;
+  height: auto;
+  background-color: @color-bg;
+  border-right: 1px solid @color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile_block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.avatar {
+  height: 130px;
+  cursor: pointer;
+}
+
+.plug {
+  position: absolute;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.circle {
+  width: 130px;
+  height: 130px;
+  background-color: #818181;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.avatar-text {
+  position: absolute;
+  margin: 0;
+  font-size: 13px;
+  color: #fff;
+  width: 50px;
+  z-index: 1;
+}
+
+.name {
+  margin: 21px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.data {
+  margin: 60px 0 0;
+  width: 510px;
+  font-size: 13px;
+}
+
+.string {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid @color-border;
+}
+
+.profile_data {
+  color: @color-text-gray;
+  margin: 10px 0;
+  border: none;
+  text-align: right;
+}
+
+.label {
+  margin: 10px 0;
+}
+
+.buttons {
+  margin: 40px 0 100px;
+  display: flex;
+  flex-direction: column;
+  width: 510px;
+  justify-content: flex-start;
+  font-size: 13px;
+}
+
+.button {
+  color: @color-primary;
+  cursor: pointer;
+  margin: 10px 0 10px;
+  text-decoration: none;
+}
+
+.buttons-change-pass {
+  margin-top: 160px;
+}
+
+.red {
+  color: @color-error;
+}
