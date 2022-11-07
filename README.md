@@ -10,7 +10,7 @@ HTML, JavaScript, Less, Handlebars, Parcel, Netlify, Node, Express
 
 ## Try it
 
-development build on http://localhost:3000/
+development build on http://localhost:1234/
 
 ```
 $ git clone
@@ -18,11 +18,10 @@ $ npm i
 $ npm run dev
 ```
 
-production build on http://localhost:1312/
+production build on http://localhost:3000/
 
 ```
-$ npm run build
-$ node server.js
+$ npm run start
 ```
 
 ## Check how it works
