@@ -10,7 +10,7 @@ HTML, JavaScript, Less, Handlebars, Parcel, Netlify, Node, Express
 
 ## Try it
 
-development build on http://localhost:1234/
+development build on http://localhost:3000/
 
 ```
 $ git clone
