@@ -1,0 +1,32 @@
+{
+  "extends": "airbnb",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+
+    "max-len": [1, 100],
+    "max-params": [2, 3],
+    "quotes": ["warn", "double"],
+
+    "no-unused-vars": "off",
+    "no-restricted-exports": "off",
+    "no-undef": "off",
+    "no-param-reassign": "off",
+    "no-useless-constructor": "off",
+    "no-underscore-dangle": "off",
+    "no-use-before-define": "off",
+
+    "import/extensions": [1, "never"],
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
+    "import/no-extraneous-dependencies": "off",
+    // "import/order": "off",
+    "class-methods-use-this": "off",
+    "prefer-arrow-callback": "off",
+    "lines-between-class-members": "off",
+    "array-callback-return": "off",
+    "operator-linebreak": "off",
+    "comma-dangle": "off"
+  }
+}

@@ -1,12 +1,12 @@
 ---
-pointer: './static/pointer.svg'
-messages: [
-{ avatar: '', name: 'Sasha', message: 'sticker', date: '15:04', new-messages: '1', from: '' },
-{ avatar: '', name: 'Peter', message: 'We will definitely discuss this at our next meeting', date: '14:20',
-new-messages: '', from: ''},
-{ avatar: '', name: 'Reddit', message: 'meet friday in good company', date: '14:00', new-messages: '3', from: ''},
-{ avatar: '', name: 'Anna', message: 'sorry i`ll write later', date: 'Thu', new-messages: '', from: 'Me: '},
+title: 'Messenger'
+screen-name: Authorization
+fields: [
+{ label: 'login', field_name: 'login', placeholder: 'Login', type: 'text', error_text: 'Invalid login' },
+{ label: 'password', field_name: 'password', placeholder: 'Password', type: 'password', error_text: 'Invalid password'
+},
 ]
+link-text: 'Create a profile'
 ---
 
 <!DOCTYPE html>
@@ -16,58 +16,29 @@ new-messages: '', from: ''},
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/debf2b4176.js" crossorigin="anonymous"></script>
-  <script src="./src/index.js" type="module"></script>
+  <script src="./src/index.ts" type="module"></script>
   <title>{{ title }}</title>
 </head>
 
 <body>
-  <main id="chats">
+  <main id="auth">
+    <div class="login">
 
-    <div class="feed">
-      <div class="header"><a href="./src/pages/profile.hbs" class="profile-link">Profile <i
-            class="fa-solid fa-chevron-right button-icon"></i>
-        </a>
-        <div class="input">
-          <input type="text" name="search" id="search" placeholder="Search" class="search">
-          <i class="fa-solid fa-magnifying-glass fa-xs"></i>
-        </div>
+      <form class="fields">
+        <h3 class="title">{{ screen-name }}</h3>
 
-      </div>
+        {{#each fields as | item |}}
+        <p class="label">{{ item.label }}</p>
+        <input type="{{ item.type }}" name="{{ item.type }}" id="{{ item.type }}" placeholder="{{ item.placeholder }}">
+        <p class="error">{{ item.error_text }}</p>
+        {{/each }}
 
+        <div class="buttons"><a href="./src/pages/chats.hbs" class="button-primary">Log in</a></div>
 
-      {{#each messages as | item |}}
-      <div class="preview">
-        <div class="avatar"></div>
-        <div>
-          <p class="name">{{ item.name }}</p>
-          <div class="content">
-            {{#if item.from}}
-            <p class="from">{{ item.from}}</p> {{/if}}<p class="message"> {{ item.message }}</p>
-          </div>
+      </form>
+      <a href="./src/pages/registration.hbs" class="link">{{ link-text }}</a>
 
-        </div>
-
-        <div class="date-block">
-          <p class="date">{{ item.date }}</p>
-          {{#if item.new-messages}}
-          <div class="unread">
-            <p class="number">{{ item.new-messages }}</p>
-          </div>
-
-          {{/if}}
-
-        </div>
-      </div>
-      {{/each }}
-
-    </div>
-
-    <div class="messages">
-      <p class="text">Select the chat to send a message</p>
     </div>
   </main>
 

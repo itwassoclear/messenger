@@ -1,0 +1,63 @@
+<div class="chats">
+
+  <div class="feed">
+    <div class="header"><a href="../Profile/profile.hbs" class="profile-link">Profile >
+      </a>
+      <div class="input">
+        <input type="text" name="search" id="search" placeholder="Search" class="search">
+        <i class="fa-solid fa-magnifying-glass fa-xs"></i>
+      </div>
+
+    </div>
+
+    {{{ preview }}}
+
+  </div>
+
+  <div class="messages">
+    <div class="plug">
+      <p class="text">Select the chat to send a message</p>
+    </div>
+
+    <div class="chat">
+      <div class="chat-header">
+        <div class="user">
+          <div class="small-avatar"></div>
+          <h3 class="user-name"></h3>
+        </div>
+        <button class="settings" data-type="settings">⋮</button>
+      </div>
+
+      <div class="settings-popup">
+        <div class="settings-popup-line">
+          <p class="popup-text">Add user</p>
+        </div>
+        <div class="settings-popup-line">
+          <p class="popup-text">Delete user</p>
+        </div>
+      </div>
+
+      <div class="chat-feed">
+      </div>
+
+      <div class="attach-popup">
+        <div class="attach-popup-line">
+          <p class="popup-text">Photo or video</p>
+        </div>
+        <div class="attach-popup-line">
+          <p class="popup-text">File</p>
+        </div>
+        <div class="attach-popup-line">
+          <p class="popup-text">Location</p>
+        </div>
+      </div>
+
+      <div class="new-message">
+        <button class="attach" data-type="attach"></button>
+        <input type="text" name="message" id="message" placeholder="Massage" class="message">
+        <button class="send">~></button>
+      </div>
+    </div>
+
+  </div>
+</div>

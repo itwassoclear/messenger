@@ -1,5 +1,5 @@
 ---
-back_button: '../../static/back-button.svg'
+
 title: 'Messenger'
 avatar: '../../static/avatar.svg'
 name: 'Maria'
@@ -24,7 +24,7 @@ exit_button: 'Log out'
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="profile.js" type="module"></script>
+  <script src="profile.ts" type="module"></script>
   <title>{{ title }}</title>
 </head>
 
@@ -32,7 +32,8 @@ exit_button: 'Log out'
 
   <div id="profile">
     <div class="back_block">
-      <a href="./profile.hbs"><img src="{{ back_button }}" alt="Go back to feed"></a>
+      <a href="./profile.hbs"><button class="back-button">
+          <~ </button></a>
     </div>
     <div class="profile_block">
       <div class="avatar">

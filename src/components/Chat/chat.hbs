@@ -1,0 +1,22 @@
+<div class="preview">
+  <div class="avatar">{{ avatar }}</div>
+  <div class="text-block">
+    <p class="name">{{ name }}</p>
+    <div class="content">
+      {{#if from}}
+      <p class="from">{{ from }}</p> {{/if}}<p class="message"> {{ message }}</p>
+    </div>
+
+  </div>
+
+  <div class="date-block">
+    <p class="date">{{ date }}</p>
+    {{#if newMessages}}
+    <div class="unread">
+      <p class="number">{{ newMessages }}</p>
+    </div>
+
+    {{/if}}
+
+  </div>
+</div>
