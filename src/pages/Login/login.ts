@@ -35,7 +35,11 @@ export class LoginPage extends Block {
       button: new Button({
         label: "Log in",
         events: {
-          click: () => console.log("kkkkk"),
+          click: () => {
+            // validation
+            const currentUrl = window.location.origin;
+            window.location.href = `${currentUrl}/Chats/chats.hbs`;
+          },
         },
       }),
       link: new Link({

@@ -5,7 +5,7 @@ import "./fields.less";
 
 interface IFields {
   fields: Block[];
-  button: Block;
+  button?: Block;
   // editButton: Block;
   // changePassButton: Block;
   // buttonClass: string;

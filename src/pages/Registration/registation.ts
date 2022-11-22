@@ -75,7 +75,11 @@ export class RegistrationPage extends Block {
       button: new Button({
         label: "Register",
         events: {
-          click: () => console.log("kkkkk"),
+          click: () => {
+            // validation
+            const currentUrl = window.location.origin;
+            window.location.href = `${currentUrl}/Chats/chats.hbs`;
+          },
         },
       }),
       link: new Link({

@@ -3,13 +3,15 @@ import template from "./field.hbs";
 import "./field.less";
 
 interface IField {
+  isInput: boolean;
+  isData: boolean;
   label: string;
-  type: string;
-  name: string;
-  value: string;
-  placeholder: string;
-  error: string;
-  data: string;
+  type?: string;
+  name?: string;
+  value?: string;
+  placeholder?: string;
+  error?: string;
+  data?: string;
   events?: {
     focusin: (e: Event) => void;
     focusout: (e: Event) => void;

@@ -9,8 +9,10 @@
 .string {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: @color-border 1px solid;
   width: 100%;
+  position: relative;
 
   &:last-child {
     border-bottom: none;
@@ -29,16 +31,19 @@
   color: @color-label;
 }
 
-input {
-  width: 272px;
-  margin: 0 0 7px;
+.profile-input {
+  // display: none;
+  text-align: right;
+  width: 255px;
+  margin: 0 0 -11px;
   border: none;
-  border-bottom: 1px solid @color-blue;
-  padding: 7px 2px;
-  background-color: @color-bg-black;
+  border-bottom: 1px solid @color-green;
+  padding: 7px 0 17px;
+  background-color: transparent;
   color: @color-text;
   height: 26px;
   font-family: "JetBrainsMono", sans-serif;
+  font-size: 13px;
 
   &:focus-visible {
     outline: none;
@@ -51,14 +56,13 @@ input {
   }
 }
 
-.profile-input {
-  display: none;
-}
-
-.input-error {
+.profile-input-error {
   color: @color-error;
   font-size: 8px;
   margin: 0 0 11px;
   opacity: 0;
   line-height: 8px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }

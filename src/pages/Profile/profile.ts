@@ -15,7 +15,7 @@ interface IProfile {
 }
 
 export class ProfilePage extends Block {
-  constructor(props: IProfile) {
+  constructor(props?: IProfile) {
     const events = {};
     super({ ...props, events });
   }
@@ -26,85 +26,78 @@ export class ProfilePage extends Block {
         new Field({
           data: "itwassoclear@gmail.com",
           label: "email",
-          type: "email",
-          value: "itwassoclear@gmail.com",
-          placeholder: "email",
-          name: "email",
-          error: "invalid email",
+          isInput: false,
+          isData: true,
         }),
         new Field({
           data: "itwassoclear",
           label: "login",
-          type: "text",
-          value: "itwassoclear",
-          placeholder: "login",
-          name: "login",
-          error: "invalid login",
+          isInput: false,
+          isData: true,
         }),
         new Field({
           data: "Maria",
           label: "first name",
-          type: "text",
-          value: "Maria",
-          placeholder: "first name",
-          name: "first_name",
-          error: "invalid name",
+          isInput: false,
+          isData: true,
         }),
         new Field({
           data: "Kotliarova",
           label: "last name",
-          type: "text",
-          value: "Kotliarova",
-          placeholder: "last name",
-          name: "last_name",
-          error: "invalid last name",
+          isInput: false,
+          isData: true,
         }),
         new Field({
           data: "Maria",
           label: "chat name",
-          type: "text",
-          value: "Maria",
-          placeholder: "chat name",
-          name: "chat_name",
-          error: "invalid chat name",
+          isInput: false,
+          isData: true,
         }),
         new Field({
           data: "89778808970",
           label: "phone",
-          type: "phone",
-          value: "89778808970",
-          placeholder: "phone",
-          name: "phone",
-          error: "invalid phone",
+          isInput: false,
+          isData: true,
         }),
       ],
-      button: new Button({
-        label: "Save",
-        className: "save-button",
-        events: {
-          click: () => console.log("kkkkk"),
-        },
-      }),
+      // button: new Button({
+      //   label: "Save",
+      //   className: "save-button",
+      //   events: {
+      //     click: () => console.log("kkkkk"),
+      //   },
+      // }),
     });
     this.children.editButton = new Button({
       label: "Edit profile",
       className: "profile-button",
       events: {
-        click: () => console.log("kkkkk"),
+        click: () => {
+          // redirect to EditProfile
+          const currentUrl = window.location.origin;
+          window.location.href = `${currentUrl}/EditProfile/edit-profile.hbs`;
+        },
       },
     });
     this.children.changePassButton = new Button({
       label: "Change password",
       className: "profile-button",
       events: {
-        click: () => console.log("kkkkk"),
+        click: () => {
+          // redirect to ChangePassword
+          const currentUrl = window.location.origin;
+          window.location.href = `${currentUrl}/ChangePassword/change-pass.hbs`;
+        },
       },
     });
     this.children.logoutButton = new Button({
       label: "Log out",
       className: "profile-button red",
       events: {
-        click: () => console.log("kkkkk"),
+        click: () => {
+          const currentUrl = window.location.origin;
+          window.location.href = `${currentUrl}`;
+        },
       },
     });
   }
