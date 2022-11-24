@@ -1,4 +1,5 @@
 import { Block } from "../../utils/Block";
+import { validate } from "../../utils/validate";
 import template from "./field.hbs";
 import "./field.less";
 
@@ -12,6 +13,7 @@ interface IField {
   placeholder?: string;
   error?: string;
   data?: string;
+  className?: string;
   events?: {
     focusin: (e: Event) => void;
     focusout: (e: Event) => void;
@@ -28,13 +30,11 @@ export class Field extends Block {
   }
 
   onFocus = (e: Event): void => {
-    // const label = document.querySelector(".label");
-    // label.style.opacity = 1;
+    validate(e, this.element!, ".profile-input-error");
   };
 
   onBlur = (e: Event): void => {
-    // const label = document.querySelector(".label");
-    // label.style.opacity = 0;
+    validate(e, this.element!, ".profile-input-error");
   };
 
   render() {

@@ -11,10 +11,13 @@ export class Block {
 
   public id = nanoid(6);
   protected props: Record<string, unknown>;
-  protected children: Record<string, Block>;
+  protected children: Record<string, Block> | Record<string, Block[]>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  private _meta: { props: any };
+  private _meta: {
+    props: Record<string, unknown>;
+    tagName?: string;
+  };
 
   /** JSDoc
    * @param {string} tagName
@@ -61,20 +64,6 @@ export class Block {
       }
     });
 
-    // Object.entries(childrenAndProps).forEach(([key, value]) => {
-    //   if (value instanceof Array) {
-    //     value.forEach((val) => {
-    //       if (val instanceof Block) {
-    //         children[key] = value;
-    //       }
-    //     });
-    //   } else if (value instanceof Block) {
-    //     children[key] = value;
-    //   } else {
-    //     props[key] = value;
-    //   }
-    // });
-
     return { props, children };
   }
 
@@ -109,7 +98,7 @@ export class Block {
 
   private _createResources() {
     const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    this._element = this._createDocumentElement(tagName!);
   }
 
   private _init() {
@@ -136,12 +125,6 @@ export class Block {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
-
-    // const response = this.componentDidUpdate(oldProps, newProps);
-    // if (!response) {
-    //   return;
-    // }
-    // this._render();
   }
 
   protected componentDidUpdate(oldProps: any, newProps: any) {
@@ -161,12 +144,6 @@ export class Block {
   }
 
   private _render() {
-    // const block = this.render();
-    // this._removeEvents();
-    // this._element!.innerHTML = "";
-    // this._element!.append(block);
-    // this._addEvents();
-
     const fragment = this.render();
     const newElement = fragment.firstElementChild as HTMLElement;
 
@@ -184,50 +161,6 @@ export class Block {
   }
 
   protected compile(template: (context: any) => string, context: any) {
-    // const fragment = this._createDocumentElement(
-    //   "template"
-    // ) as HTMLTemplateElement;
-
-    // Object.entries(this.children).forEach(([name, component]) => {
-    //   if (Array.isArray(component)) {
-    //     context[name] = component.map((el) => `<div data-id='${el.id}'></div>`);
-    //     return;
-    //   }
-    //     component.forEach((val) => {
-    //       if (!contextAndStubs[name]) {
-    //         contextAndStubs[name] = `<div data-id='${val.id}'></div>`;
-    //       } else {
-    //         contextAndStubs[
-    //           name
-    //         ] = `${contextAndStubs[name]}<div data-id='${val.id}'></div>`;
-    //       }
-    //     });
-    //     return;
-    //   }
-
-    //   context[name] = `<div data-id='${component.id}'></div>`;
-    // });
-
-    // const htmlString = template(context);
-
-    // fragment.innerHTML = htmlString;
-
-    // Object.entries(this.children).forEach(([name, component]) => {
-    //   if (Array.isArray(component)) {
-    //     context[name] = component.map(el => `<div data-id='${el.id}'></div>`)
-    //     return
-    //   }
-    //   const stub = fragment.content.querySelector(
-    //     `[data-id='${component.id}']`
-    //   );
-
-    //   if (!stub) return;
-
-    //   stub.replaceWith(component.getContent()!);
-    // });
-
-    // return fragment.content;
-
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {

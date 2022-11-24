@@ -4,14 +4,12 @@ import { Block } from "../../utils/Block";
 import template from "./edit-profile.hbs";
 import "./edit-profile.less";
 import Button from "../../components/Button";
+import { onSubmit } from "../../utils/onSubmit";
 
 interface IProfile {
   name: string;
   fields: Block[];
   button: Block;
-  events?: {
-    // submit: (e: SubmitEvent) => void;
-  };
 }
 
 export class EditProfilePage extends Block {
@@ -31,7 +29,7 @@ export class EditProfilePage extends Block {
           value: "itwassoclear@gmail.com",
           placeholder: "email",
           name: "email",
-          error: "invalid email",
+          className: "validated-input",
         }),
         new Field({
           isInput: true,
@@ -41,7 +39,7 @@ export class EditProfilePage extends Block {
           value: "itwassoclear",
           placeholder: "login",
           name: "login",
-          error: "invalid login",
+          className: "validated-input",
         }),
         new Field({
           isInput: true,
@@ -51,17 +49,17 @@ export class EditProfilePage extends Block {
           value: "Maria",
           placeholder: "first name",
           name: "first_name",
-          error: "invalid name",
+          className: "validated-input",
         }),
         new Field({
           isInput: true,
           isData: false,
-          label: "last name",
+          label: "second name",
           type: "text",
           value: "Kotliarova",
-          placeholder: "last name",
-          name: "last_name",
-          error: "invalid last name",
+          placeholder: "second name",
+          name: "second_name",
+          className: "validated-input",
         }),
         new Field({
           isInput: true,
@@ -71,7 +69,6 @@ export class EditProfilePage extends Block {
           value: "Maria",
           placeholder: "chat name",
           name: "chat_name",
-          error: "invalid chat name",
         }),
         new Field({
           isInput: true,
@@ -81,7 +78,7 @@ export class EditProfilePage extends Block {
           value: "89778808970",
           placeholder: "phone",
           name: "phone",
-          error: "invalid phone",
+          className: "validated-input",
         }),
       ],
     });
@@ -89,10 +86,8 @@ export class EditProfilePage extends Block {
       label: "Save",
       className: "save-button",
       events: {
-        click: () => {
-          // validation
-          const currentUrl = window.location.origin;
-          window.location.href = `${currentUrl}/Profile/profile.hbs`;
+        click: (e: Event): void => {
+          onSubmit(e);
         },
       },
     });

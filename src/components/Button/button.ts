@@ -5,8 +5,9 @@ import "./button.less";
 interface IButton {
   label: string;
   className?: string;
+  type?: string;
   events?: {
-    click: () => void;
+    click: (e: Event) => void;
   };
 }
 

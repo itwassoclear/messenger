@@ -9,6 +9,7 @@ import ChatsPage from "./src/pages/Chats";
 import ProfilePage from "./src/pages/Profile";
 import EditProfilePage from "./src/pages/EditProfile";
 import ChangePasswordPage from "./src/pages/ChangePassword";
+import { renderPage } from "./src/utils/renderPage";
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginPage = new LoginPage();
@@ -20,13 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const editProfilePage = new EditProfilePage();
   const changePasswordPage = new ChangePasswordPage();
 
-  function renderPage(page: any): void {
-    renderDOM("#app", page);
-  }
-
+  // при загрузке страницы в тэг app подставляется содержимое страницы Логин
   renderDOM("#app", loginPage);
 
-  const path = document.location.pathname;
+  const path = document.location.pathname; // смотрим где мы
 
   switch (path) {
     case "/":
@@ -36,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderPage(loginPage);
       break;
 
+    // если по клику на кнопку перешли на регистрацию,
+    // подставляем в app темплейт страницы Регистрация
     case "/Registration/registration.hbs":
       renderPage(registrationPage);
       break;
@@ -65,6 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
       break;
 
     default:
-      renderPage(loginPage);
+      renderPage(error404);
   }
 });

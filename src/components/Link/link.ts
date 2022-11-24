@@ -5,9 +5,6 @@ import "./link.less";
 interface ILink {
   path: string;
   text: string;
-  // events?: {
-  //   click: () => void;
-  // };
 }
 
 export class Link extends Block {

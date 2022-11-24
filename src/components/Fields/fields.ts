@@ -6,9 +6,6 @@ import "./fields.less";
 interface IFields {
   fields: Block[];
   button?: Block;
-  // editButton: Block;
-  // changePassButton: Block;
-  // buttonClass: string;
   events?: {
     submit: (e: SubmitEvent) => void;
   };

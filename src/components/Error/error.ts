@@ -6,9 +6,6 @@ interface IError {
   number: string;
   text: string;
   link: string;
-  // events?: {
-  //   click: () => void;
-  // };
 }
 
 export class Error extends Block {

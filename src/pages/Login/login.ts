@@ -5,6 +5,7 @@ import Form from "../../components/Form";
 import { Block } from "../../utils/Block";
 import template from "./login.hbs";
 import "./login.less";
+import { onSubmit } from "../../utils/onSubmit";
 
 export class LoginPage extends Block {
   constructor() {
@@ -20,7 +21,7 @@ export class LoginPage extends Block {
           value: "",
           placeholder: "login",
           name: "login",
-          error: "invalid login",
+          className: "validated-input",
         }),
         new Input({
           label: "password",
@@ -28,17 +29,16 @@ export class LoginPage extends Block {
           value: "",
           placeholder: "password",
           name: "password",
-          error: "invalid password",
+          className: "validated-input",
         }),
       ],
       name: "Authorization",
       button: new Button({
         label: "Log in",
+        type: "submit",
         events: {
-          click: () => {
-            // validation
-            const currentUrl = window.location.origin;
-            window.location.href = `${currentUrl}/Chats/chats.hbs`;
+          click: (e: Event): void => {
+            onSubmit(e);
           },
         },
       }),

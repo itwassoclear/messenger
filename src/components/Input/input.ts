@@ -1,4 +1,5 @@
 import { Block } from "../../utils/Block";
+import { validate } from "../../utils/validate";
 import template from "./input.hbs";
 import "./input.less";
 
@@ -8,7 +9,7 @@ interface IInput {
   name: string;
   value: string;
   placeholder: string;
-  error: string;
+  className?: string;
   events?: {
     focusin: (e: Event) => void;
     focusout: (e: Event) => void;
@@ -25,13 +26,11 @@ export class Input extends Block {
   }
 
   onFocus = (e: Event): void => {
-    // const label = document.querySelector(".label");
-    // label.style.opacity = 1;
+    validate(e, this.element!, ".input-error");
   };
 
   onBlur = (e: Event): void => {
-    // const label = document.querySelector(".label");
-    // label.style.opacity = 0;
+    validate(e, this.element!, ".input-error");
   };
 
   render() {

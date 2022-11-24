@@ -1,5 +1,4 @@
 import { Block } from "../../utils/Block";
-import { onSubmit } from "../../utils/onSubmit";
 import template from "./form.hbs";
 import "./form.less";
 
@@ -17,9 +16,7 @@ interface IForm {
 
 export class Form extends Block {
   constructor(props: IForm) {
-    const events = {
-      submit: (e: Event) => onSubmit(e),
-    };
+    const events = {};
     super({ ...props, events });
   }
 

@@ -5,6 +5,7 @@ import Form from "../../components/Form";
 import { Block } from "../../utils/Block";
 import template from "./registration.hbs";
 import "./registration.less";
+import { onSubmit } from "../../utils/onSubmit";
 
 export class RegistrationPage extends Block {
   constructor() {
@@ -20,7 +21,7 @@ export class RegistrationPage extends Block {
           value: "",
           placeholder: "email",
           name: "email",
-          error: "please use name@any.any",
+          className: "validated-input",
         }),
         new Input({
           label: "login",
@@ -28,23 +29,23 @@ export class RegistrationPage extends Block {
           value: "",
           placeholder: "login",
           name: "login",
-          error: "must contain more than 2 characters",
+          className: "validated-input",
         }),
         new Input({
           label: "first name",
           type: "text",
           value: "",
           placeholder: "first name",
-          name: "first name",
-          error: "must contain more than 2 characters",
+          name: "first_name",
+          className: "validated-input",
         }),
         new Input({
           label: "second name",
           type: "text",
           value: "",
           placeholder: "second name",
-          name: "second name",
-          error: "must contain more than 2 characters",
+          name: "second_name",
+          className: "validated-input",
         }),
         new Input({
           label: "phone",
@@ -52,7 +53,7 @@ export class RegistrationPage extends Block {
           value: "",
           placeholder: "phone",
           name: "phone",
-          error: "must contain more than 2 characters",
+          className: "validated-input",
         }),
         new Input({
           label: "password",
@@ -60,7 +61,7 @@ export class RegistrationPage extends Block {
           value: "",
           placeholder: "password",
           name: "password",
-          error: "must contain more than 2 characters",
+          className: "validated-input",
         }),
         new Input({
           label: "password",
@@ -68,17 +69,15 @@ export class RegistrationPage extends Block {
           value: "",
           placeholder: "repeat password",
           name: "password",
-          error: "passwords do not match",
+          className: "validated-input",
         }),
       ],
       name: "Registration",
       button: new Button({
         label: "Register",
         events: {
-          click: () => {
-            // validation
-            const currentUrl = window.location.origin;
-            window.location.href = `${currentUrl}/Chats/chats.hbs`;
+          click: (e: Event): void => {
+            onSubmit(e);
           },
         },
       }),
