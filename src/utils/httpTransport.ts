@@ -1,4 +1,4 @@
-enum METHODS {
+enum Methods {
   GET = "GET",
   POST = "POST",
   PUT = "PUT",
@@ -6,7 +6,7 @@ enum METHODS {
 }
 
 interface IOptions {
-  method: METHODS;
+  method: Methods;
   data?: any;
   timeout?: number;
   headers?: Record<string, string>;
@@ -26,34 +26,46 @@ export function queryStringify(data: any) {
 }
 
 export class HTTPTransport {
-  get(url: string, options: IOptions): Promise<XMLHttpRequest | unknown> {
+  get(
+    url: string,
+    options: Omit<IOptions, "method">
+  ): Promise<XMLHttpRequest | unknown> {
     return this.request(
       url,
-      { ...options, method: METHODS.GET },
+      { ...options, method: Methods.GET },
       options.timeout
     );
   }
 
-  post(url: string, options: IOptions): Promise<XMLHttpRequest | unknown> {
+  post(
+    url: string,
+    options: Omit<IOptions, "method">
+  ): Promise<XMLHttpRequest | unknown> {
     return this.request(
       url,
-      { ...options, method: METHODS.POST },
+      { ...options, method: Methods.POST },
       options.timeout
     );
   }
 
-  put(url: string, options: IOptions): Promise<XMLHttpRequest | unknown> {
+  put(
+    url: string,
+    options: Omit<IOptions, "method">
+  ): Promise<XMLHttpRequest | unknown> {
     return this.request(
       url,
-      { ...options, method: METHODS.PUT },
+      { ...options, method: Methods.PUT },
       options.timeout
     );
   }
 
-  delete(url: string, options: IOptions): Promise<XMLHttpRequest | unknown> {
+  delete(
+    url: string,
+    options: Omit<IOptions, "method">
+  ): Promise<XMLHttpRequest | unknown> {
     return this.request(
       url,
-      { ...options, method: METHODS.DELETE },
+      { ...options, method: Methods.DELETE },
       options.timeout
     );
   }
@@ -72,7 +84,7 @@ export class HTTPTransport {
       }
 
       const xhr = new XMLHttpRequest();
-      const isGet = method === METHODS.GET;
+      const isGet = method === Methods.GET;
 
       xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 

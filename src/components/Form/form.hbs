@@ -7,7 +7,10 @@
     {{{ button }}}
 
     <div class="links">
-      <p class="link-text">{{ linkText }}</p>{{{ link }}}
+      {{#if linkText}}
+      <p class="link-text">{{ linkText }}</p>
+      {{/if}}
+      {{{ link }}}
     </div>
 
   </div>

@@ -6,7 +6,7 @@ interface IPattern {
 export const pattern: Record<string, IPattern> = {
   login: {
     error: "3-20 characters",
-    regExp: /(?!^\d+$)^[a-zA-Z0-9_-]{3,20}/,
+    regExp: /(?!^\d+$)^[a-zA-Z0-9_-]{3,20}$/,
   },
   email: {
     error: "please use any@any.any",
