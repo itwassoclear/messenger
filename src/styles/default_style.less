@@ -1,35 +1,33 @@
-@color-text: #1e1e1e;
-@color-text-gray: #999999;
-@color-primary: #5d4d84;
-@color-primary-hover: #574585;
-@color-error: #d71616;
-@color-bg: #fbfbfb;
-@color-input: #efefef;
-@color-border: #eaeaea;
-@color-hover: rgba(59, 165, 138, 0.15);
+@import "../../static/fonts.less";
+@color-text: #fff;
+@color-text-gray: #cdcdcd;
+@color-text-yellow: #ffc66d;
 
-@border-radius: 8px;
+@color-label: #a9b7c6;
+@color-border: #2b2b2d;
+
+@color-bg: #1a1b1e;
+@color-bg-hover: #1f2023;
+@color-bg-black: #000;
+
+@color-green: #20999d;
+@color-purple: #9876aa;
+@color-blue: #167dff;
+@color-green-hover: #077f83;
+@color-purple-hover: #794e90;
+@color-blue-hover: #1c69d2;
+
+@color-error: #f73e29;
+@color-error-hover: #b12818;
+
+@border-radius: 25px;
 @input-border-radius: 5px;
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "JetBrainsMono", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-}
-
-.button-primary {
-  width: 280px;
-  height: 37px;
-  background: @color-primary;
-  border-radius: @border-radius;
-  border: none;
-  color: #fff;
-  margin: 0 auto;
-  cursor: pointer;
-
-  &:hover {
-    background-color: @color-primary-hover;
-  }
+  background-color: @color-bg;
 }

@@ -2,7 +2,11 @@
 
 ## What is this?
 
-Messenger project. Now it's only layout from [Figma](https://www.figma.com/file/gsvfLgmxRtYrGRpZFuhWJF/Chat?node-id=0%3A1)
+Messenger project. Now it's only layout from [Figma](https://www.figma.com/file/gsvfLgmxRtYrGRpZFuhWJF/Chat?node-id=0%3A1).
+UI is inspired by the font [JetBrains Mono](https://www.jetbrains.com/lp/mono/).
+
+sprint 1: added layout with Handlebars
+sprint 2: added simple routing and form validation. created reusable components
 
 ## Stack
 

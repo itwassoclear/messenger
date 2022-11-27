@@ -1,0 +1,18 @@
+<form class="fields">
+  <h3 class="title">{{ name }}</h3>
+
+  {{{ inputs }}}
+
+  <div class="buttons {{ buttonsClass }}">
+    {{{ button }}}
+
+    <div class="links">
+      {{#if linkText}}
+      <p class="link-text">{{ linkText }}</p>
+      {{/if}}
+      {{{ link }}}
+    </div>
+
+  </div>
+
+</form>
