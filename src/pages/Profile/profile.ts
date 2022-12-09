@@ -4,20 +4,12 @@ import { Block } from "../../utils/Block";
 import template from "./profile.hbs";
 import "./profile.less";
 import Button from "../../components/Button";
-
-interface IProfile {
-  name: string;
-  fields: Block[];
-  button: Block;
-  events?: {
-    // submit: (e: SubmitEvent) => void;
-  };
-}
+import ChangePassword from "../ChangePassword";
+import EditProfile from "../EditProfile";
 
 export class ProfilePage extends Block {
-  constructor(props?: IProfile) {
-    const events = {};
-    super({ ...props, events });
+  constructor() {
+    super({});
   }
 
   protected initChildren(): void {
@@ -43,7 +35,7 @@ export class ProfilePage extends Block {
         }),
         new Field({
           data: "Kotliarova",
-          label: "last name",
+          label: "second name",
           isInput: false,
           isData: true,
         }),
@@ -60,22 +52,20 @@ export class ProfilePage extends Block {
           isData: true,
         }),
       ],
-      // button: new Button({
-      //   label: "Save",
-      //   className: "save-button",
-      //   events: {
-      //     click: () => console.log("kkkkk"),
-      //   },
-      // }),
     });
     this.children.editButton = new Button({
       label: "Edit profile",
       className: "profile-button",
       events: {
         click: () => {
-          // redirect to EditProfile
-          const currentUrl = window.location.origin;
-          window.location.href = `${currentUrl}/EditProfile/edit-profile.hbs`;
+          const profileBlock = document.querySelector(
+            ".profile_block"
+          ) as HTMLElement;
+          profileBlock.style.display = "none";
+          const profileFields = document.querySelector(
+            ".profile-fields"
+          ) as HTMLElement;
+          profileFields.style.display = "flex";
         },
       },
     });
@@ -84,9 +74,14 @@ export class ProfilePage extends Block {
       className: "profile-button",
       events: {
         click: () => {
-          // redirect to ChangePassword
-          const currentUrl = window.location.origin;
-          window.location.href = `${currentUrl}/ChangePassword/change-pass.hbs`;
+          const profileBlock = document.querySelector(
+            ".profile_block"
+          ) as HTMLElement;
+          profileBlock.style.display = "none";
+          const passwordFields = document.querySelector(
+            ".password-fields"
+          ) as HTMLElement;
+          passwordFields.style.display = "flex";
         },
       },
     });
@@ -100,6 +95,8 @@ export class ProfilePage extends Block {
         },
       },
     });
+    this.children.editProfile = new EditProfile({});
+    this.children.changePassword = new ChangePassword({});
   }
 
   render() {

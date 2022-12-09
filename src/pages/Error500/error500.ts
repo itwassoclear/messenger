@@ -5,7 +5,7 @@ import "./error500.less";
 
 export class Error500 extends Block {
   constructor() {
-    super();
+    super({});
   }
 
   protected initChildren(): void {

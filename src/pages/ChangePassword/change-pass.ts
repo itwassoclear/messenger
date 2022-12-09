@@ -7,12 +7,12 @@ import Button from "../../components/Button";
 import { onSubmit } from "../../utils/onSubmit";
 
 interface IProfile {
-  name: string;
-  fields: Block[];
-  button: Block;
+  name?: string;
+  fields?: Block[];
+  button?: Block;
 }
 
-export class ChangePasswordPage extends Block {
+export class ChangePassword extends Block {
   constructor(props?: IProfile) {
     const events = {};
     super({ ...props, events });
@@ -59,6 +59,14 @@ export class ChangePasswordPage extends Block {
       events: {
         click: (e: Event): void => {
           onSubmit(e);
+          const profileBlock = document.querySelector(
+            ".profile_block"
+          ) as HTMLElement;
+          profileBlock.style.display = "flex";
+          const passwordFields = document.querySelector(
+            ".password-fields"
+          ) as HTMLElement;
+          passwordFields.style.display = "none";
         },
       },
     });

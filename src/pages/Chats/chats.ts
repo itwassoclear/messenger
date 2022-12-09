@@ -8,7 +8,7 @@ import { onSubmit } from "../../utils/onSubmit";
 
 export class ChatsPage extends Block {
   constructor() {
-    super();
+    super({});
   }
 
   protected initChildren(): void {

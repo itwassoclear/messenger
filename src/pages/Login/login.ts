@@ -9,7 +9,7 @@ import { onSubmit } from "../../utils/onSubmit";
 
 export class LoginPage extends Block {
   constructor() {
-    super();
+    super({});
   }
 
   protected initChildren(): void {
@@ -43,7 +43,7 @@ export class LoginPage extends Block {
         },
       }),
       link: new Link({
-        path: "../Registration/registration.hbs",
+        path: "/sign-up",
         text: "Create a profile",
       }),
       linkText: "",

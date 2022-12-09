@@ -1,11 +1,5 @@
 import { pattern } from "./pattern";
-import { renderPage } from "./renderPage";
-
-import ChatsPage from "../pages/Chats";
-import ProfilePage from "../pages/Profile";
-
-const chatsPage = new ChatsPage();
-const profilePage = new ProfilePage();
+import Router from "./Router";
 
 export function onSubmit(e: Event) {
   e.preventDefault();
@@ -44,8 +38,8 @@ export function onSubmit(e: Event) {
   // и сразу переход на нужную страницу, если всё ок
   const button = e.target as HTMLElement;
   if (button.innerText === "Log in" || button.innerText === "Register") {
-    renderPage(chatsPage);
+    Router.go("/messenger");
   } else if (button.innerText === "Save") {
-    renderPage(profilePage);
+    // Router.go("/settings");
   }
 }

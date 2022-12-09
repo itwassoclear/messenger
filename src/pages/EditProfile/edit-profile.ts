@@ -7,12 +7,12 @@ import Button from "../../components/Button";
 import { onSubmit } from "../../utils/onSubmit";
 
 interface IProfile {
-  name: string;
-  fields: Block[];
-  button: Block;
+  name?: string;
+  fields?: Block[];
+  button?: Block;
 }
 
-export class EditProfilePage extends Block {
+export class EditProfile extends Block {
   constructor(props?: IProfile) {
     const events = {};
     super({ ...props, events });
@@ -88,6 +88,14 @@ export class EditProfilePage extends Block {
       events: {
         click: (e: Event): void => {
           onSubmit(e);
+          const profileBlock = document.querySelector(
+            ".profile_block"
+          ) as HTMLElement;
+          profileBlock.style.display = "flex";
+          const profileFields = document.querySelector(
+            ".profile-fields"
+          ) as HTMLElement;
+          profileFields.style.display = "none";
         },
       },
     });

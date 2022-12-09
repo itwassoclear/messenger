@@ -1,23 +1,19 @@
 import { nanoid } from "nanoid";
 import { EventBus } from "./EventBus";
 
-export class Block {
+export class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render",
-  };
+  } as const;
 
   public id = nanoid(6);
-  protected props: Record<string, unknown>;
+  protected props: P;
   protected children: Record<string, Block> | Record<string, Block[]>;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
-  private _meta: {
-    props: Record<string, unknown>;
-    tagName?: string;
-  };
 
   /** JSDoc
    * @param {string} tagName
@@ -26,19 +22,12 @@ export class Block {
    * @returns {void}
    */
 
-  constructor(propsWithChildren: any = {}) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
-
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
-    this._meta = {
-      props,
-    };
-
     this.children = children;
-
     this.initChildren();
-
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
@@ -47,13 +36,15 @@ export class Block {
     eventBus.emit(Block.EVENTS.INIT);
   }
 
-  private _getChildrenAndProps(childrenAndProps: any) {
-    const props: Record<string, any> = {};
+  private _getChildrenAndProps(childrenAndProps: P): {
+    props: P;
+    children: Record<string, Block> | Record<string, Block[]>;
+  } {
+    const props: Record<string, unknown> = {};
     const children: Record<string, Block> | Record<string, Block[]> = {};
-
-    Object.entries(childrenAndProps).map(([key, value]) => {
+    Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
-        children[key] = value;
+        children[key as string] = value;
       } else if (
         Array.isArray(value) &&
         value.every((v) => v instanceof Block)
@@ -64,23 +55,11 @@ export class Block {
       }
     });
 
-    return { props, children };
-  }
-
-  private _removeEvents() {
-    const { events } = this.props;
-
-    if (!events || !this._element) {
-      return;
-    }
-
-    Object.entries(events).forEach(([event, listener]) => {
-      this._element!.removeEventListener(event, listener);
-    });
+    return { props: props as P, children };
   }
 
   private _addEvents() {
-    const { events = {} } = this.props as {
+    const { events = {} } = this.props as P & {
       events: Record<string, () => void>;
     };
 
@@ -96,14 +75,7 @@ export class Block {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  private _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName!);
-  }
-
   private _init() {
-    this._createResources();
-
     this.init();
 
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
@@ -119,15 +91,19 @@ export class Block {
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+
+    Object.values(this.children).forEach((child) =>
+      child.dispatchComponentDidMount()
+    );
   }
 
-  private _componentDidUpdate(oldProps?: any, newProps?: any) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+  private _componentDidUpdate(oldProps?: P, newProps?: P): void {
+    if (this.componentDidUpdate(oldProps!, newProps!)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  protected componentDidUpdate(oldProps: any, newProps: any) {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
@@ -147,8 +123,7 @@ export class Block {
     const fragment = this.render();
     const newElement = fragment.firstElementChild as HTMLElement;
 
-    if (this._element) {
-      this._removeEvents();
+    if (this._element && newElement) {
       this._element.replaceWith(newElement);
     }
 
@@ -216,17 +191,17 @@ export class Block {
     return this.element;
   }
 
-  private _makePropsProxy(props: any) {
+  private _makePropsProxy(props: P) {
     const self = this;
 
     return new Proxy(props, {
-      get(target, prop) {
+      get(target, prop: string) {
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set(target, prop: string, value) {
         const oldTarget = { ...target };
-        target[prop] = value;
+        target[prop as keyof P] = value;
 
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
@@ -235,10 +210,6 @@ export class Block {
         throw new Error("Нет доступа");
       },
     });
-  }
-
-  private _createDocumentElement(tagName: string) {
-    return document.createElement(tagName);
   }
 
   public show() {

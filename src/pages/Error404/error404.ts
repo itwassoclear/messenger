@@ -5,7 +5,7 @@ import "./error404.less";
 
 export class Error404 extends Block {
   constructor() {
-    super();
+    super({});
   }
 
   protected initChildren(): void {
