@@ -7,14 +7,49 @@ import Error500 from "./src/pages/Error500";
 import ChatsPage from "./src/pages/Chats";
 import ProfilePage from "./src/pages/Profile";
 import Router from "./src/utils/Router";
+import AuthController from "./src/controllers/AuthController";
 
-document.addEventListener("DOMContentLoaded", () => {
-  Router.use("/", LoginPage)
-    .use("/sign-up", RegistrationPage)
-    .use("/messenger", ChatsPage)
-    .use("/settings", ProfilePage)
-    .use("/error-404", Error404)
-    .use("/error-500", Error500);
+enum Routes {
+  Index = "/",
+  SignUp = "/sign-up",
+  Chat = "/messenger",
+  Profile = "/settings",
+  Error404 = "/error-404",
+  Error500 = "/error-500",
+}
 
-  Router.start();
+document.addEventListener("DOMContentLoaded", async () => {
+  Router.use(Routes.Index, LoginPage)
+    .use(Routes.SignUp, RegistrationPage)
+    .use(Routes.Chat, ChatsPage)
+    .use(Routes.Profile, ProfilePage)
+    .use(Routes.Error404, Error404)
+    .use(Routes.Error500, Error500);
+
+  let isProtectedRoute = true;
+
+  switch (window.location.pathname) {
+    case Routes.Index:
+    case Routes.SignUp:
+      isProtectedRoute = false;
+      break;
+  }
+
+  try {
+    await AuthController.fetchUser();
+
+    Router.start();
+
+    if (!isProtectedRoute) {
+      Router.go(Routes.Profile);
+    }
+  } catch (e) {
+    Router.start();
+
+    if (isProtectedRoute) {
+      Router.go(Routes.Index);
+    }
+  }
+
+  // Router.start();
 });

@@ -24,7 +24,7 @@ export const pattern: Record<string, IPattern> = {
     error: "10-15 numbers",
     regExp: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,9}$/,
   },
-  chat_name: {
+  diaplay_name: {
     error: "10-12 characters",
     regExp: /^[а-яa-zА-ЯA-Z0-9_-]{3,15}$/,
   },
@@ -39,5 +39,9 @@ export const pattern: Record<string, IPattern> = {
   search: {
     error: "write something",
     regExp: /^/,
+  },
+  avatar: {
+    error: "you need to select a file",
+    regExp: /(.|\s)*\S(.|\s)*$/,
   },
 };

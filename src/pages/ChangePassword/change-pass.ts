@@ -26,7 +26,7 @@ export class ChangePassword extends Block {
           isData: false,
           label: "old password",
           type: "password",
-          value: "qwertyasdF1",
+          value: "",
           placeholder: "old password",
           name: "password",
           className: "validated-input",
@@ -36,7 +36,7 @@ export class ChangePassword extends Block {
           isData: false,
           label: "new password",
           type: "password",
-          value: "qwertyasdF123",
+          value: "",
           placeholder: "new password",
           name: "password",
           className: "validated-input",
@@ -46,7 +46,7 @@ export class ChangePassword extends Block {
           isData: false,
           label: "repeat new password",
           type: "password",
-          value: "qwertyasdF123",
+          value: "",
           placeholder: "repeat new password",
           name: "password",
           className: "validated-input",
@@ -58,15 +58,14 @@ export class ChangePassword extends Block {
       className: "save-button",
       events: {
         click: (e: Event): void => {
-          onSubmit(e);
+          const data = onSubmit(e);
+          // UserController.updateUser(data as any);
+
           const profileBlock = document.querySelector(
             ".profile_block"
           ) as HTMLElement;
           profileBlock.style.display = "flex";
-          const passwordFields = document.querySelector(
-            ".password-fields"
-          ) as HTMLElement;
-          passwordFields.style.display = "none";
+          this.hide();
         },
       },
     });

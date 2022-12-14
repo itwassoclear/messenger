@@ -5,6 +5,7 @@ import template from "./edit-profile.hbs";
 import "./edit-profile.less";
 import Button from "../../components/Button";
 import { onSubmit } from "../../utils/onSubmit";
+import AuthController from "../../controllers/AuthController";
 
 interface IProfile {
   name?: string;
@@ -18,7 +19,9 @@ export class EditProfile extends Block {
     super({ ...props, events });
   }
 
-  protected initChildren(): void {
+  init() {
+    AuthController.fetchUser();
+
     this.children.fields = new Fields({
       fields: [
         new Field({
@@ -26,7 +29,7 @@ export class EditProfile extends Block {
           isData: false,
           label: "email",
           type: "email",
-          value: "itwassoclear@gmail.com",
+          value: this.props.email,
           placeholder: "email",
           name: "email",
           className: "validated-input",
@@ -36,7 +39,7 @@ export class EditProfile extends Block {
           isData: false,
           label: "login",
           type: "text",
-          value: "itwassoclear",
+          value: this.props.login,
           placeholder: "login",
           name: "login",
           className: "validated-input",
@@ -46,7 +49,7 @@ export class EditProfile extends Block {
           isData: false,
           label: "first name",
           type: "text",
-          value: "Maria",
+          value: this.props.first_name,
           placeholder: "first name",
           name: "first_name",
           className: "validated-input",
@@ -56,7 +59,7 @@ export class EditProfile extends Block {
           isData: false,
           label: "second name",
           type: "text",
-          value: "Kotliarova",
+          value: this.props.second_name,
           placeholder: "second name",
           name: "second_name",
           className: "validated-input",
@@ -64,18 +67,18 @@ export class EditProfile extends Block {
         new Field({
           isInput: true,
           isData: false,
-          label: "chat name",
+          label: "diaplay name",
           type: "text",
-          value: "Maria",
-          placeholder: "chat name",
-          name: "chat_name",
+          value: this.props.diaplay_name,
+          placeholder: "diaplay name",
+          name: "diaplay_name",
         }),
         new Field({
           isInput: true,
           isData: false,
           label: "phone",
           type: "phone",
-          value: "89778808970",
+          value: this.props.phone,
           placeholder: "phone",
           name: "phone",
           className: "validated-input",
@@ -87,21 +90,20 @@ export class EditProfile extends Block {
       className: "save-button",
       events: {
         click: (e: Event): void => {
-          onSubmit(e);
+          const data = onSubmit(e);
+          // UserController.updateUser(data as any);
+
           const profileBlock = document.querySelector(
             ".profile_block"
           ) as HTMLElement;
           profileBlock.style.display = "flex";
-          const profileFields = document.querySelector(
-            ".profile-fields"
-          ) as HTMLElement;
-          profileFields.style.display = "none";
+          this.hide();
         },
       },
     });
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, this.props);
   }
 }

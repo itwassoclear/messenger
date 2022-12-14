@@ -1,13 +1,13 @@
 import { Block } from "../../utils/Block";
+import template from "./profile-popup-content.hbs";
 import { validate } from "../../utils/validate";
-import template from "./input.hbs";
-import "./input.less";
+import "./profile-popup-content.less";
 
-interface IInput {
+interface IProfilePopupContent {
   label: string;
   type: string;
   name: string;
-  value?: string;
+  value: string;
   placeholder: string;
   className?: string;
   events?: {
@@ -16,8 +16,8 @@ interface IInput {
   };
 }
 
-export class Input extends Block {
-  constructor(props: IInput) {
+export class ProfilePopupContent extends Block {
+  constructor(props: IProfilePopupContent) {
     const events = {
       focusin: (e: Event): void => this.onFocus(e),
       focusout: (e: Event): void => this.onBlur(e),

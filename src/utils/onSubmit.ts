@@ -1,5 +1,6 @@
+import AuthController from "../controllers/AuthController";
 import { pattern } from "./pattern";
-import Router from "./Router";
+import { ISignupData, ISigninData } from "./types";
 
 export function onSubmit(e: Event) {
   e.preventDefault();
@@ -34,12 +35,5 @@ export function onSubmit(e: Event) {
   });
 
   console.log(values); // вывод в консоль данных из инпутов
-
-  // и сразу переход на нужную страницу, если всё ок
-  const button = e.target as HTMLElement;
-  if (button.innerText === "Log in" || button.innerText === "Register") {
-    Router.go("/messenger");
-  } else if (button.innerText === "Save") {
-    // Router.go("/settings");
-  }
+  return values;
 }

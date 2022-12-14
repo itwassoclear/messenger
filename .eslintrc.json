@@ -23,6 +23,8 @@
     "no-restricted-syntax": "off",
     "no-prototype-builtins": "off",
     "no-continue": "off",
+    "no-cond-assign": "off",
+    "no-constant-condition": "off",
 
     "import/extensions": [1, "never"],
     "import/prefer-default-export": "off",
@@ -41,6 +43,8 @@
     "implicit-arrow-linebreak": "off",
     "func-names": "off",
     "max-classes-per-file": "off",
-    "prefer-const": "off"
+    "prefer-const": "off",
+    "consistent-return": "off",
+    "default-case": "off"
   }
 }

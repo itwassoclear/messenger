@@ -213,7 +213,7 @@ export class Block<P extends Record<string, any> = any> {
   }
 
   public show() {
-    this.getContent()!.style.display = "block";
+    this.getContent()!.style.display = "flex";
   }
 
   public hide() {

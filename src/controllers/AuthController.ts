@@ -1,34 +1,59 @@
-import API, { AuthAPI, SigninData, SignupData } from "../api/AuthAPI";
+import { AuthAPI } from "../api/AuthAPI";
+import { ISigninData, ISignupData } from "../utils/types";
 import store from "../utils/Store";
 import router from "../utils/Router";
 
-export class AuthController {
-  private readonly api: AuthAPI;
+class AuthController {
+  constructor(private api: AuthAPI) {}
 
-  constructor() {
-    this.api = API;
-  }
-
-  async signin(data: SigninData) {
+  async signin(data: ISigninData) {
     try {
       await this.api.signin(data);
+      this.fetchUser(); // await
 
-      router.go("/profile");
+      store.set("user.error", undefined);
+
+      router.go("/messenger");
     } catch (e: any) {
       console.error(e);
     }
   }
 
-  async signup(data: SignupData) {
+  async signup(data: ISignupData) {
     try {
       await this.api.signup(data);
-
       await this.fetchUser();
 
-      router.go("/profile");
+      router.go("/messenger");
     } catch (e: any) {
       console.error(e.message);
     }
+  }
+
+  async request(req: () => void) {
+    store.set("user.isLoading", true);
+    try {
+      await req();
+
+      store.set("user.error", undefined);
+    } catch (e: any) {
+      store.set("user.error", e);
+      console.error(e.message);
+    } finally {
+      store.set("user.isLoading", false);
+    }
+  }
+
+  async fetchChats() {
+    const chats = await this.api.read();
+
+    store.set("chats", chats);
+  }
+
+  async selectChat(id: number) {
+    store.set("selectedChat", id);
+
+    // createConnetion()
   }
 
   async fetchUser() {
@@ -38,14 +63,12 @@ export class AuthController {
   }
 
   async logout() {
-    try {
+    await this.request(async () => {
       await this.api.logout();
 
       router.go("/");
-    } catch (e: any) {
-      console.error(e.message);
-    }
+    });
   }
 }
 
-export default new AuthController();
+export default new AuthController(new AuthAPI());

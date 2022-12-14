@@ -6,6 +6,8 @@ import { Block } from "../../utils/Block";
 import template from "./login.hbs";
 import "./login.less";
 import { onSubmit } from "../../utils/onSubmit";
+import AuthController from "../../controllers/AuthController";
+import { ISigninData } from "../../utils/types";
 
 export class LoginPage extends Block {
   constructor() {
@@ -38,7 +40,8 @@ export class LoginPage extends Block {
         type: "submit",
         events: {
           click: (e: Event): void => {
-            onSubmit(e);
+            const data = onSubmit(e);
+            AuthController.signin(data as ISigninData);
           },
         },
       }),

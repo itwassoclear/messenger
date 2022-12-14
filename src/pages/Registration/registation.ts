@@ -6,6 +6,8 @@ import { Block } from "../../utils/Block";
 import template from "./registration.hbs";
 import "./registration.less";
 import { onSubmit } from "../../utils/onSubmit";
+import AuthController from "../../controllers/AuthController";
+import { ISignupData } from "../../utils/types";
 
 export class RegistrationPage extends Block {
   constructor() {
@@ -77,7 +79,8 @@ export class RegistrationPage extends Block {
         label: "Register",
         events: {
           click: (e: Event): void => {
-            onSubmit(e);
+            const data = onSubmit(e);
+            AuthController.signup(data as ISignupData);
           },
         },
       }),
