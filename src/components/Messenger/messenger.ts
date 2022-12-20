@@ -23,11 +23,11 @@ interface IMessenger {
 
 export class MessengerBase extends Block {
   constructor(props: IMessenger) {
-    super(props);
+    super({ ...props });
   }
 
   protected init() {
-    this.children.messages = this.createMessages(this.props);
+    this.children.messages = this.createMessages({ ...this.props });
 
     this.children.input = new Input({
       type: "text",
@@ -67,11 +67,12 @@ export class MessengerBase extends Block {
 
   private createMessages(props: any) {
     // console.log("messages", props.messages);
-    if (!props.messages) {
-      return [];
-    }
 
-    return props.messages.map((data: { user_id: any }) => {
+    // if (!props.messages) {
+    //   return [];
+    // }
+
+    return props.messages.map((data: any) => {
       return new Message({ ...data, isMine: props.userId === data.user_id });
     });
   }

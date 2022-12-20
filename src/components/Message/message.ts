@@ -10,11 +10,10 @@ interface MessageProps {
 
 export class Message extends Block<MessageProps> {
   constructor(props: MessageProps) {
-    super(props);
+    super({ ...props });
   }
 
   protected render(): DocumentFragment {
-    // console.log(this.props[0]);
     return this.compile(template, { ...this.props });
   }
 }

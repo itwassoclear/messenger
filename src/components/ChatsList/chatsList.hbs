@@ -1,6 +1,8 @@
 <div class="previews">
   {{#if isLoaded }}
-  {{{ chats }}}
+  {{#each chats}}
+  {{{this}}}
+  {{/each}}
   {{else}}
   Loading...
   {{/if}}

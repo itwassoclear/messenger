@@ -16,6 +16,7 @@ export class ChatsListBase extends Block<IChatsList> {
   }
 
   protected init() {
+    console.log("PROPS", this.props);
     this.children.chats = this.createChats(this.props);
   }
 
@@ -31,9 +32,9 @@ export class ChatsListBase extends Block<IChatsList> {
   private createChats(props: IChatsList) {
     console.log("props", props);
 
-    if (!props.chats) {
-      return [];
-    }
+    // if (!props.chats) {
+    //   return [];
+    // }
 
     return props.chats.map((data) => {
       return new Chat({

@@ -20,7 +20,9 @@
   </div>
 
   <div class="chat-feed">
-    {{{ messages }}}
+    {{#each messages}}
+    {{{this}}}
+    {{/each}}
   </div>
 
   <div class="attach-popup">

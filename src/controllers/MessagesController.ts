@@ -64,32 +64,46 @@ export class MessagesController {
     });
   }
 
-  onMessageReceived(chatId: number, message: IMessage | IMessage[]) {
-    let type;
-    if (Array.isArray(message)) {
-      type = "message";
+  onMessageReceived(chatId: number, messages: IMessage | IMessage[]) {
+    // let type;
+    // if (Array.isArray(message)) {
+    //   type = "message";
+    // } else {
+    //   type = message.type;
+    // }
+
+    // const messagesState = store.getState().messages;
+    // // console.log("messagesState", messagesState, chatId);
+    // const oldMessages = messagesState ? messagesState[chatId] : [];
+    // // console.log("oldMessages", oldMessages);
+
+    // switch (type) {
+    //   case "message":
+    //     // store.set(`messages.${chatId}`, [...oldMessages, message]);
+    //     store.set(`messages.${chatId}`, message);
+    //     break;
+
+    //   case "messages":
+    //     store.set(`messages.${chatId}`, [
+    //       ...oldMessages,
+    //       ...(message as IMessage[]).reverse(),
+    //     ]);
+    //     break;
+    // }
+
+    let messagesToAdd: IMessage[] = [];
+
+    if (Array.isArray(messages)) {
+      messagesToAdd = messages.reverse();
     } else {
-      type = message.type;
+      messagesToAdd.push(messages);
     }
 
-    const messagesState = store.getState().messages;
-    // console.log("messagesState", messagesState, chatId);
-    const oldMessages = messagesState ? messagesState[chatId] : [];
-    // console.log("oldMessages", oldMessages);
+    const currentMessages = (store.getState().messages || {})[chatId] || [];
 
-    switch (type) {
-      case "message":
-        // store.set(`messages.${chatId}`, [...oldMessages, message]);
-        store.set(`messages.${chatId}`, message);
-        break;
+    messagesToAdd = [...currentMessages, ...messagesToAdd];
 
-      case "messages":
-        store.set(`messages.${chatId}`, [
-          ...oldMessages,
-          ...(message as IMessage[]).reverse(),
-        ]);
-        break;
-    }
+    store.set(`messages.${chatId}`, messagesToAdd);
   }
 
   onConnectionClosed(id: number) {
