@@ -1,3 +1,5 @@
+import { queryStringify } from "./helpers";
+
 enum Method {
   GET = "GET",
   POST = "POST",
@@ -9,6 +11,7 @@ enum Method {
 interface IOptions {
   method: Method;
   data?: any;
+  headers?: Record<string, string>;
 }
 
 export class HTTPTransport {
@@ -86,7 +89,6 @@ export class HTTPTransport {
       }
 
       xhr.withCredentials = true;
-
       xhr.responseType = "json";
 
       if (method === Method.GET || !data) {
@@ -96,4 +98,54 @@ export class HTTPTransport {
       }
     });
   }
+
+  // private request<Response>(url: string, options: IOptions): Promise<Response> {
+  //   const { headers = {}, method, data } = options;
+  //   const preparedData = data instanceof FormData ? data : JSON.stringify(data);
+  //   const preparedHeaders =
+  //     data instanceof FormData ? {} : { "Content-Type": "application/json" };
+
+  //   return new Promise(function (resolve, reject) {
+  //     if (!method) {
+  //       reject("No method");
+  //       return;
+  //     }
+
+  //     const xhr = new XMLHttpRequest();
+  //     const isGet = method === Method.GET;
+
+  //     xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+
+  //     Object.keys(preparedHeaders).forEach((key) => {
+  //       xhr.setRequestHeader(key, headers[key]);
+  //     });
+
+  //     xhr.onload = function () {
+  //       resolve(xhr);
+  //     };
+
+  //     xhr.onreadystatechange = (e) => {
+  //       if (xhr.readyState === XMLHttpRequest.DONE) {
+  //         if (xhr.status < 400) {
+  //           resolve(xhr.response);
+  //         } else {
+  //           reject(xhr.response);
+  //         }
+  //       }
+  //     };
+
+  //     xhr.onabort = reject;
+  //     xhr.onerror = reject;
+  //     xhr.ontimeout = reject;
+
+  //     xhr.withCredentials = true;
+  //     xhr.responseType = "json";
+
+  //     if (isGet || !data) {
+  //       xhr.send();
+  //     } else {
+  //       xhr.send(preparedData);
+  //     }
+  //   });
+  // }
 }

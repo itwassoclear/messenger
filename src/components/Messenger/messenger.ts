@@ -46,13 +46,11 @@ export class MessengerBase extends Block {
       className: "send",
       events: {
         click: (e) => {
+          const input: any = document.querySelector("#message");
+          const message = input.value;
           onSubmit(e, "validated-input");
-
-          const input = this.children.input as Input;
-          const message = input.getValue();
-
           MessagesController.sendMessage(this.props.selectedChat!, message);
-          input.setValue("");
+          input.value = "";
         },
       },
     });

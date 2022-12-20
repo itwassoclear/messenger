@@ -4,7 +4,7 @@ import "./chat.less";
 import { withStore } from "../../hocs/withStore";
 import { IChatInfo } from "../../api/ChatsAPI";
 
-interface IPreview {
+interface IChat {
   id: number;
   title: string;
   unread_count: number;
@@ -15,8 +15,8 @@ interface IPreview {
   };
 }
 
-export class PreviewBase extends Block<IPreview> {
-  constructor(props: IPreview) {
+export class ChatBase extends Block<IChat> {
+  constructor(props: IChat) {
     super(props);
   }
 
@@ -39,4 +39,4 @@ export const withSelectedChat = withStore((state) => ({
   selectedChat: (state.chats || []).find(({ id }) => id === state.selectedChat),
 }));
 
-export const Chat = withSelectedChat(PreviewBase as any);
+export const Chat = withSelectedChat(ChatBase as any);

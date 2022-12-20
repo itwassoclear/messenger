@@ -2,6 +2,7 @@ import { AuthAPI } from "../api/AuthAPI";
 import { ISigninData, ISignupData } from "../utils/types";
 import store from "../utils/Store";
 import router from "../utils/Router";
+import MessagesController from "./MessagesController";
 
 class AuthController {
   constructor(private api: AuthAPI) {}
@@ -63,11 +64,20 @@ class AuthController {
   }
 
   async logout() {
-    await this.request(async () => {
+    try {
       await this.api.logout();
 
+      MessagesController.closeAll();
       router.go("/");
-    });
+    } catch (e: any) {
+      console.error(e.message);
+    }
+
+    // await this.request(async () => {
+    //   await this.api.logout();
+
+    //   router.go("/");
+    // });
   }
 }
 

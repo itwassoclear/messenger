@@ -32,6 +32,7 @@ export class ChatsPage extends Block {
         },
       },
     });
+
     this.children.addChatPopup = new Popup({
       title: "Add new chat",
       button: new Button({

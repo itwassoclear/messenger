@@ -1,13 +1,9 @@
-import API, { ChatsAPI } from "../api/ChatsAPI";
+import { ChatsAPI } from "../api/ChatsAPI";
 import store from "../utils/Store";
 import MessagesController from "./MessagesController";
 
 export class ChatsController {
-  private readonly api: ChatsAPI;
-
-  constructor() {
-    this.api = API;
-  }
+  constructor(private api: ChatsAPI) {}
 
   async create(title: string) {
     await this.api.create(title);
@@ -52,7 +48,7 @@ export class ChatsController {
   }
 }
 
-const chatsController = new ChatsController();
+const chatsController = new ChatsController(new ChatsAPI());
 
 // @ts-ignore
 window.chatsController = chatsController;

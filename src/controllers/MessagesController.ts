@@ -50,11 +50,12 @@ export class MessagesController {
     this.fetchOldMessages(id);
   }
 
-  sendMessage(id: number, message: string) {
+  async sendMessage(id: number, message: string) {
     const transport = this.transports[id];
 
     if (!transport) {
-      throw new Error(`Chat ${id} is not connected`);
+      // throw new Error(`Chat ${id} is not connected`);
+      this.connect(id);
     }
 
     transport.send({
@@ -72,22 +73,20 @@ export class MessagesController {
     }
 
     const messagesState = store.getState().messages;
-
-    if (messagesState) {
-      // console.log("messagesState", messagesState, chatId);
-    }
+    // console.log("messagesState", messagesState, chatId);
     const oldMessages = messagesState ? messagesState[chatId] : [];
     // console.log("oldMessages", oldMessages);
 
     switch (type) {
       case "message":
-        store.set(`messages.${chatId}`, [...oldMessages, message]);
+        // store.set(`messages.${chatId}`, [...oldMessages, message]);
+        store.set(`messages.${chatId}`, message);
         break;
 
       case "messages":
         store.set(`messages.${chatId}`, [
           ...oldMessages,
-          ...(message as IMessage[]),
+          ...(message as IMessage[]).reverse(),
         ]);
         break;
     }
@@ -107,9 +106,10 @@ export class MessagesController {
     transport.send({ type: "get old", content: "0" });
   }
 
-  // closeAll() {
-  //   Array.from(this.transports.values()).forEach((socket) => socket.close());
-  // }
+  closeAll() {
+    // Array.from(this.transports.values()).forEach((socket) => socket.close());
+    Object.values(this.transports).forEach((transport) => transport.close());
+  }
 
   // private onMessage(id: number, messages: IMessage | IMessage[]) {
   //   let messagesToAdd: IMessage[] = [];
