@@ -50,9 +50,10 @@ export class HTTPTransport {
     });
   }
 
-  public delete<Response>(path: string): Promise<Response> {
+  public delete<Response>(path: string, data?: unknown): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
       method: Method.DELETE,
+      data,
     });
   }
 
@@ -81,16 +82,17 @@ export class HTTPTransport {
       xhr.ontimeout = () => reject({ reason: "timeout" });
 
       if (!(data instanceof FormData)) {
-        // xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
       }
 
       xhr.withCredentials = true;
+
       xhr.responseType = "json";
 
       if (method === Method.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   }

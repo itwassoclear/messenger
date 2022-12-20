@@ -23,7 +23,6 @@ export class UserController {
   }
 
   async updateAvatar(data: FormData) {
-    console.log(data); // пусто
     try {
       await this.api.updateAvatar(data);
       await AuthController.fetchUser();

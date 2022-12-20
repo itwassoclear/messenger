@@ -14,8 +14,29 @@ import Input from "../../components/Input";
 import Avatar from "../../components/Avatar";
 import Close from "../../components/Close";
 
+interface IProfilePageBase {
+  fields: Block[];
+  avatar: Block;
+  editButton: Block;
+  changePassButton: Block;
+  logoutButton: Block;
+  editProfile: Block;
+  changePassword: Block;
+  popup: Block;
+}
+
+interface IProfileInfo {
+  avatar: string;
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  phone: string;
+}
+
 export class ProfilePageBase extends Block {
-  constructor(props: any) {
+  constructor(props: IProfilePageBase) {
     super(props);
   }
 
@@ -24,10 +45,11 @@ export class ProfilePageBase extends Block {
   }
 
   init() {
-    // AuthController.fetchUser();
-
     this.children.avatar = new Avatar({
-      photo: this.props.avatar || "../../../static/icons/image-black.svg",
+      photo:
+        this.props.avatar === null
+          ? "../../../static/icons/image-black.svg"
+          : `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
       events: {
         click: () => {
           (this.children.popup as Popup).show();
@@ -61,7 +83,7 @@ export class ProfilePageBase extends Block {
           isData: true,
         }),
         new Field({
-          data: this.props.diaplay_name,
+          data: this.props.display_name,
           label: "display name",
           isInput: false,
           isData: true,
@@ -110,7 +132,7 @@ export class ProfilePageBase extends Block {
       },
     });
     this.children.editProfile = new EditProfile(this.props);
-    this.children.changePassword = new ChangePassword({});
+    this.children.changePassword = new ChangePassword(this.props);
     this.children.popup = new Popup({
       title: "Upload file",
       button: new Button({
@@ -119,13 +141,13 @@ export class ProfilePageBase extends Block {
         events: {
           click: (e: any) => {
             e.preventDefault();
-            const form: HTMLFormElement = document.querySelector("form#popup")!;
             const formData = new FormData();
-            const input = document.querySelector("#avatar");
+            const input: any = document.querySelector("#avatar");
+
             formData.append("avatar", input?.files[0]);
 
             UserController.updateAvatar(formData);
-            // this.hide();
+            this.hide();
           },
         },
       }),
@@ -141,12 +163,65 @@ export class ProfilePageBase extends Block {
         type: "file",
         placeholder: "file",
         name: "avatar",
-        className: "validated-input",
+        className: "avatar-validated-input",
       }),
     });
   }
 
-  protected initChildren(): void {}
+  protected componentDidUpdate(
+    oldProps: IProfileInfo,
+    newProps: IProfileInfo
+  ): boolean {
+    (this.children.avatar as Avatar).setProps({
+      photo:
+        newProps.avatar === null
+          ? "../../../static/icons/image-black.svg"
+          : `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
+    });
+
+    this.children.fields = new Fields({
+      fields: [
+        new Field({
+          data: newProps.email,
+          label: "email",
+          isInput: false,
+          isData: true,
+        }),
+        new Field({
+          data: newProps.login,
+          label: "login",
+          isInput: false,
+          isData: true,
+        }),
+        new Field({
+          data: newProps.first_name,
+          label: "first name",
+          isInput: false,
+          isData: true,
+        }),
+        new Field({
+          data: newProps.second_name,
+          label: "second name",
+          isInput: false,
+          isData: true,
+        }),
+        new Field({
+          data: newProps.display_name,
+          label: "display name",
+          isInput: false,
+          isData: true,
+        }),
+        new Field({
+          data: newProps.phone,
+          label: "phone",
+          isInput: false,
+          isData: true,
+        }),
+      ],
+    });
+
+    return true;
+  }
 
   render() {
     return this.compile(template, this.props);
@@ -154,4 +229,4 @@ export class ProfilePageBase extends Block {
 }
 
 const withUser = withStore((state) => ({ ...state.user }));
-export const ProfilePage = withUser(ProfilePageBase);
+export const ProfilePage = withUser(ProfilePageBase as typeof Block);

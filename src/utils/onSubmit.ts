@@ -1,14 +1,21 @@
-import AuthController from "../controllers/AuthController";
 import { pattern } from "./pattern";
-import { ISignupData, ISigninData } from "./types";
 
-export function onSubmit(e: Event) {
+export function onSubmit(e: Event, inputClass: string) {
   e.preventDefault();
-  const inputs = document.querySelectorAll(".validated-input");
+  let inputs = null;
+  if (inputClass === "profile-validated-input") {
+    inputs = document.querySelectorAll(".profile-validated-input");
+  } else if (inputClass === "password-validated-input") {
+    inputs = document.querySelectorAll(".password-validated-input");
+  } else if (inputClass === "avatar-validated-input") {
+    inputs = document.querySelectorAll(".avatar-validated-input");
+  } else {
+    inputs = document.querySelectorAll(".validated-input");
+  }
+
   const windowError: HTMLElement | null =
     document.querySelector(".window-error");
   windowError!.textContent = "fill in the form correctly";
-
   const isError: boolean = Array.from(inputs).some((input: Element) => {
     const inputWithType = input as HTMLInputElement | null;
     const value = inputWithType!.value;
@@ -31,6 +38,7 @@ export function onSubmit(e: Event) {
     const inputWithType = input as HTMLInputElement | null;
     const value = inputWithType!.value;
     const name = inputWithType!.name;
+    if (name === "repeat_password") return;
     values[name] = value;
   });
 

@@ -15,17 +15,6 @@ export class Avatar extends Block {
     super(props);
   }
 
-  init() {
-    // const plug: any = document.querySelector(".plug");
-    // const avatar: any = document.querySelector(".profile-avatar");
-    // avatar.addEventListener("mouseover", () => {
-    //   plug.style.opacity = 100;
-    // });
-    // avatar.addEventListener("mouseout", () => {
-    //   plug.style.opacity = 0;
-    // });
-  }
-
   render() {
     return this.compile(template, { ...this.props });
   }

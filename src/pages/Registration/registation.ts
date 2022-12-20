@@ -79,7 +79,7 @@ export class RegistrationPage extends Block {
         label: "Register",
         events: {
           click: (e: Event): void => {
-            const data = onSubmit(e);
+            const data = onSubmit(e, "validated-input");
             AuthController.signup(data as ISignupData);
           },
         },

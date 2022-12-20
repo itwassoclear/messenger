@@ -1,4 +1,4 @@
-<div>
+<div class="{{ divClass }}">
   <label class="label">{{ label }}</label>
   {{#if value}}
   <input type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}"
@@ -7,5 +7,9 @@
   <input type="{{ type }}" name="{{ name }}" id="{{ name }}" placeholder="{{ placeholder }}" class="{{ className }}">
   {{/if}}
 
+  {{#if noError}}
+  <div></div>
+  {{else}}
   <p class="error input-error">{{ error }}</p>
+  {{/if}}
 </div>

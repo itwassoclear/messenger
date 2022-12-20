@@ -6,22 +6,21 @@ import "./edit-profile.less";
 import Button from "../../components/Button";
 import { onSubmit } from "../../utils/onSubmit";
 import AuthController from "../../controllers/AuthController";
+import UserController from "../../controllers/UserController";
 
-interface IProfile {
-  name?: string;
-  fields?: Block[];
-  button?: Block;
+interface IEditProfile {
+  fields: Block[];
+  saveButton: Block;
 }
 
 export class EditProfile extends Block {
-  constructor(props?: IProfile) {
+  constructor(props: IEditProfile) {
     const events = {};
     super({ ...props, events });
   }
 
   init() {
     AuthController.fetchUser();
-
     this.children.fields = new Fields({
       fields: [
         new Field({
@@ -32,7 +31,7 @@ export class EditProfile extends Block {
           value: this.props.email,
           placeholder: "email",
           name: "email",
-          className: "validated-input",
+          className: "profile-validated-input",
         }),
         new Field({
           isInput: true,
@@ -42,7 +41,7 @@ export class EditProfile extends Block {
           value: this.props.login,
           placeholder: "login",
           name: "login",
-          className: "validated-input",
+          className: "profile-validated-input",
         }),
         new Field({
           isInput: true,
@@ -52,7 +51,7 @@ export class EditProfile extends Block {
           value: this.props.first_name,
           placeholder: "first name",
           name: "first_name",
-          className: "validated-input",
+          className: "profile-validated-input",
         }),
         new Field({
           isInput: true,
@@ -62,16 +61,17 @@ export class EditProfile extends Block {
           value: this.props.second_name,
           placeholder: "second name",
           name: "second_name",
-          className: "validated-input",
+          className: "profile-validated-input",
         }),
         new Field({
           isInput: true,
           isData: false,
-          label: "diaplay name",
+          label: "display name",
           type: "text",
-          value: this.props.diaplay_name,
-          placeholder: "diaplay name",
-          name: "diaplay_name",
+          value: this.props.display_name,
+          placeholder: "display name",
+          name: "display_name",
+          className: "profile-validated-input",
         }),
         new Field({
           isInput: true,
@@ -81,7 +81,7 @@ export class EditProfile extends Block {
           value: this.props.phone,
           placeholder: "phone",
           name: "phone",
-          className: "validated-input",
+          className: "profile-validated-input",
         }),
       ],
     });
@@ -90,8 +90,8 @@ export class EditProfile extends Block {
       className: "save-button",
       events: {
         click: (e: Event): void => {
-          const data = onSubmit(e);
-          // UserController.updateUser(data as any);
+          const data = onSubmit(e, "profile-validated-input");
+          UserController.updateUser(data as any);
 
           const profileBlock = document.querySelector(
             ".profile_block"

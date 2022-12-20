@@ -40,7 +40,7 @@ export class LoginPage extends Block {
         type: "submit",
         events: {
           click: (e: Event): void => {
-            const data = onSubmit(e);
+            const data = onSubmit(e, "validated-input");
             AuthController.signin(data as ISigninData);
           },
         },

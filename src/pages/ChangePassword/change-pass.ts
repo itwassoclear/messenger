@@ -5,15 +5,15 @@ import template from "./change-pass.hbs";
 import "./change-pass.less";
 import Button from "../../components/Button";
 import { onSubmit } from "../../utils/onSubmit";
+import UserController from "../../controllers/UserController";
 
-interface IProfile {
-  name?: string;
-  fields?: Block[];
-  button?: Block;
+interface IChangePassword {
+  fields: Block[];
+  saveButton?: Block;
 }
 
 export class ChangePassword extends Block {
-  constructor(props?: IProfile) {
+  constructor(props: IChangePassword) {
     const events = {};
     super({ ...props, events });
   }
@@ -28,8 +28,8 @@ export class ChangePassword extends Block {
           type: "password",
           value: "",
           placeholder: "old password",
-          name: "password",
-          className: "validated-input",
+          name: "oldPassword",
+          className: "password-validated-input",
         }),
         new Field({
           isInput: true,
@@ -38,8 +38,8 @@ export class ChangePassword extends Block {
           type: "password",
           value: "",
           placeholder: "new password",
-          name: "password",
-          className: "validated-input",
+          name: "newPassword",
+          className: "password-validated-input",
         }),
         new Field({
           isInput: true,
@@ -48,8 +48,8 @@ export class ChangePassword extends Block {
           type: "password",
           value: "",
           placeholder: "repeat new password",
-          name: "password",
-          className: "validated-input",
+          name: "repeat_password",
+          className: "password-validated-input",
         }),
       ],
     });
@@ -58,8 +58,8 @@ export class ChangePassword extends Block {
       className: "save-button",
       events: {
         click: (e: Event): void => {
-          const data = onSubmit(e);
-          // UserController.updateUser(data as any);
+          const data = onSubmit(e, "password-validated-input");
+          UserController.updatePassword(data as any);
 
           const profileBlock = document.querySelector(
             ".profile_block"

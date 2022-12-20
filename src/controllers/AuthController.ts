@@ -9,7 +9,7 @@ class AuthController {
   async signin(data: ISigninData) {
     try {
       await this.api.signin(data);
-      this.fetchUser(); // await
+      await this.fetchUser(); // await
 
       store.set("user.error", undefined);
 
@@ -50,11 +50,11 @@ class AuthController {
     store.set("chats", chats);
   }
 
-  async selectChat(id: number) {
-    store.set("selectedChat", id);
+  // async selectChat(id: number) {
+  //   store.set("selectedChat", id);
 
-    // createConnetion()
-  }
+  // createConnetion()
+  // }
 
   async fetchUser() {
     const user = await this.api.read();

@@ -3,7 +3,7 @@ import template from "./button.hbs";
 import "./button.less";
 
 interface IButton {
-  label: string;
+  label?: string;
   className?: string;
   type?: string;
   events?: {

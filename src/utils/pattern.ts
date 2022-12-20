@@ -24,11 +24,23 @@ export const pattern: Record<string, IPattern> = {
     error: "10-15 numbers",
     regExp: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,9}$/,
   },
-  diaplay_name: {
+  display_name: {
     error: "10-12 characters",
     regExp: /^[а-яa-zА-ЯA-Z0-9_-]{3,15}$/,
   },
   password: {
+    error: "8-40 characters (at least 1 number, 1 capital)",
+    regExp: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40})$/,
+  },
+  oldPassword: {
+    error: "8-40 characters (at least 1 number, 1 capital)",
+    regExp: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40})$/,
+  },
+  newPassword: {
+    error: "8-40 characters (at least 1 number, 1 capital)",
+    regExp: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40})$/,
+  },
+  repeat_password: {
     error: "8-40 characters (at least 1 number, 1 capital)",
     regExp: /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,40})$/,
   },

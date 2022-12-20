@@ -10,6 +10,8 @@ interface IInput {
   value?: string;
   placeholder: string;
   className?: string;
+  noError?: boolean;
+  divClass?: string;
   events?: {
     focusin: (e: Event) => void;
     focusout: (e: Event) => void;
@@ -32,6 +34,18 @@ export class Input extends Block {
   onBlur = (e: Event): void => {
     validate(e, this.element!, ".input-error");
   };
+
+  public setValue(value: string) {
+    return ((this.element as HTMLInputElement).value = value);
+  }
+
+  public getName() {
+    return (this.element as HTMLInputElement).name;
+  }
+
+  public getValue() {
+    return (this.element as HTMLInputElement).value;
+  }
 
   render() {
     return this.compile(template, { ...this.props });

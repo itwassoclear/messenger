@@ -9,15 +9,16 @@ export class UserAPI extends BaseAPI {
   headers: Record<string, string> = { "Content-Type": "application/json" };
 
   updateUser(data: IUserInfo) {
-    return this.http.put("/profile", { data, headers: this.headers });
+    return this.http.put("/profile", data);
   }
 
   updatePassword(data: IPassword) {
-    return this.http.put("/password", { data, headers: this.headers });
+    console.log(data);
+    return this.http.put("/password", data);
   }
 
   updateAvatar(data: FormData) {
-    return this.http.put("/profile/avatar", { data });
+    return this.http.put("/profile/avatar", data);
   }
 
   create = undefined;
