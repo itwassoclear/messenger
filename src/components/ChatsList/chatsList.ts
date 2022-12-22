@@ -16,7 +16,6 @@ export class ChatsListBase extends Block<IChatsList> {
   }
 
   protected init() {
-    console.log("PROPS", this.props);
     this.children.chats = this.createChats(this.props);
   }
 
@@ -24,18 +23,14 @@ export class ChatsListBase extends Block<IChatsList> {
     oldProps: IChatsList,
     newProps: IChatsList
   ): boolean {
-    this.children.chats = this.createChats(newProps);
+    if (newProps.chats) {
+      this.children.chats = this.createChats(newProps);
+    }
 
     return true;
   }
 
   private createChats(props: IChatsList) {
-    console.log("props", props);
-
-    // if (!props.chats) {
-    //   return [];
-    // }
-
     return props.chats.map((data) => {
       return new Chat({
         ...data,
@@ -55,8 +50,20 @@ export class ChatsListBase extends Block<IChatsList> {
   }
 }
 
-const withChats = withStore((state) => ({
-  chats: [...(state.chats || [])],
-}));
+const withChats = withStore((state) => {
+  const selectedChatId = state.selectedChat;
+
+  if (!selectedChatId) {
+    return {
+      messages: [],
+      chats: [...(state.chats || [])],
+    };
+  }
+
+  return {
+    messages: (state.messages || {})[selectedChatId] || [],
+    chats: [...(state.chats || [])],
+  };
+});
 
 export const ChatsList = withChats(ChatsListBase as any);

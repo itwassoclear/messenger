@@ -29,7 +29,7 @@ export class ChatBase extends Block<IChat> {
     return this.compile(template, {
       ...this.props,
       isSelected: this.props.id === this.props.selectedChat?.id,
-      isMine: true,
+      // isMine: true,
       time,
     });
   }

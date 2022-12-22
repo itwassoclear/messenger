@@ -8,7 +8,7 @@ export class Error500 extends Block {
     super({});
   }
 
-  protected initChildren(): void {
+  protected init(): void {
     this.children.error = new Error({
       number: "500",
       text: "We’re already fixing",

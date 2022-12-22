@@ -18,7 +18,7 @@ export class ChangePassword extends Block {
     super({ ...props, events });
   }
 
-  protected initChildren(): void {
+  protected init(): void {
     this.children.fields = new Fields({
       fields: [
         new Field({

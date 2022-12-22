@@ -66,6 +66,7 @@ class Router {
 
     if (!route) {
       const errorPage = new Route("/error-404", Error404, this._rootQuery);
+      console.log(errorPage);
       errorPage.render();
       return;
     }

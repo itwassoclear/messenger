@@ -56,4 +56,16 @@ export const pattern: Record<string, IPattern> = {
     error: "you need to select a file",
     regExp: /(.|\s)*\S(.|\s)*$/,
   },
+  chatName: {
+    error: "write something",
+    regExp: /(.|\s)*\S(.|\s)*$/,
+  },
+  addUserId: {
+    error: "write something",
+    regExp: /(.|\s)*\S(.|\s)*$/,
+  },
+  deleteUserId: {
+    error: "write something",
+    regExp: /(.|\s)*\S(.|\s)*$/,
+  },
 };

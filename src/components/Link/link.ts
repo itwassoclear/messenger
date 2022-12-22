@@ -6,6 +6,7 @@ import "./link.less";
 interface ILink extends PropsWithRouter {
   path: string;
   text: string;
+  className?: string;
   events?: {
     click: () => void;
   };

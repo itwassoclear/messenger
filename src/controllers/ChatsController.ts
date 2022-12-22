@@ -2,35 +2,35 @@ import { ChatsAPI } from "../api/ChatsAPI";
 import store from "../utils/Store";
 import MessagesController from "./MessagesController";
 
-export class ChatsController {
+class ChatsController {
   constructor(private api: ChatsAPI) {}
 
   async create(title: string) {
     await this.api.create(title);
 
-    await this.fetchChats();
+    await this.fetchChats(); // await
   }
 
   async fetchChats() {
     const chats = await this.api.read();
 
-    // chats.map(async (chat) => {
-    //   const token = await this.getToken(chat.id);
+    chats.map(async (chat) => {
+      const token = await this.getToken(chat.id);
 
-    //   await messagesController.connect(chat.id, token);
-    // });
-
-    const promises = chats.map((chat) => {
-      return MessagesController.connect(chat.id);
+      await MessagesController.connect(chat.id, token);
     });
-
-    await Promise.all(promises);
 
     store.set("chats", chats);
   }
 
-  addUserToChat(id: number, userId: number) {
+  async addUserToChat(id: number, userId: number) {
     this.api.addUsers(id, [userId]);
+    await this.fetchChats();
+  }
+
+  async deleteUserFromChat(id: number, userId: number) {
+    await this.api.deleteUsers(id, [userId]);
+    await this.fetchChats();
   }
 
   async delete(id: number) {

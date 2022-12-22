@@ -14,8 +14,8 @@ export class LoginPage extends Block {
     super({});
   }
 
-  init() {
-    this.children.newForm = new Form({
+  protected init(): void {
+    this.children.form = new Form({
       name: "Authorization",
       button: new Button({
         label: "Log in",
@@ -53,46 +53,6 @@ export class LoginPage extends Block {
       ],
     });
   }
-
-  // protected initChildren(): void {
-  //   this.children.form = new Form({
-  //     inputs: [
-  //       new Input({
-  //         label: "login",
-  //         type: "text",
-  //         value: "",
-  //         placeholder: "login",
-  //         name: "login",
-  //         className: "validated-input",
-  //       }),
-  //       new Input({
-  //         label: "password",
-  //         type: "password",
-  //         value: "",
-  //         placeholder: "password",
-  //         name: "password",
-  //         className: "validated-input",
-  //       }),
-  //     ],
-  //     name: "Authorization",
-  //     button: new Button({
-  //       label: "Log in",
-  //       type: "submit",
-  //       events: {
-  //         click: (e: Event): void => {
-  //           const data = onSubmit(e, "validated-input");
-  //           AuthController.signin(data as ISigninData);
-  //         },
-  //       },
-  //     }),
-  //     link: new Link({
-  //       path: "/sign-up",
-  //       text: "Create a profile",
-  //     }),
-  //     linkText: "",
-  //     buttonsClass: "buttons-login",
-  //   });
-  // }
 
   render() {
     return this.compile(template, { ...this.props });

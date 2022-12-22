@@ -1,4 +1,5 @@
 import { pattern } from "./pattern";
+import { trim } from "./helpers";
 
 export function onSubmit(e: Event, inputClass: string) {
   e.preventDefault();
@@ -9,6 +10,12 @@ export function onSubmit(e: Event, inputClass: string) {
     inputs = document.querySelectorAll(".password-validated-input");
   } else if (inputClass === "avatar-validated-input") {
     inputs = document.querySelectorAll(".avatar-validated-input");
+  } else if (inputClass === "chat-validated-input") {
+    inputs = document.querySelectorAll(".chat-validated-input");
+  } else if (inputClass === "add-user-validated-input") {
+    inputs = document.querySelectorAll(".add-user-validated-input");
+  } else if (inputClass === "delete-user-validated-input") {
+    inputs = document.querySelectorAll(".delete-user-validated-input");
   } else {
     inputs = document.querySelectorAll(".validated-input");
   }
@@ -18,7 +25,7 @@ export function onSubmit(e: Event, inputClass: string) {
   windowError!.textContent = "fill in the form correctly";
   const isError: boolean = Array.from(inputs).some((input: Element) => {
     const inputWithType = input as HTMLInputElement | null;
-    const value = inputWithType!.value;
+    const value = trim(inputWithType!.value);
     const name = inputWithType!.name;
 
     if (name === "message") {

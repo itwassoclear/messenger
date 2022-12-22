@@ -2,6 +2,15 @@ export type Indexed<T = any> = {
   [key in string]: T;
 };
 
+export function trim(string: string, chars?: string): string {
+  if (string && !chars) {
+    return string.trim();
+  }
+
+  const reg = new RegExp(`[${chars}]`, "gi");
+  return string.replace(reg, "");
+}
+
 export function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs;
 }

@@ -9,6 +9,8 @@ import Popup from "../../components/Popup";
 import Button from "../../components/Button";
 import Close from "../../components/Close";
 import Input from "../../components/Input";
+import { onSubmit } from "../../utils/onSubmit";
+import Link from "../../components/Link";
 
 export class ChatsPage extends Block {
   constructor() {
@@ -23,6 +25,11 @@ export class ChatsPage extends Block {
       isLoaded: false,
     });
     this.children.messenger = new Messenger({});
+    this.children.link = new Link({
+      path: "/settings",
+      text: "Profile >",
+      className: "link-to-profile",
+    });
     this.children.addChatButton = new Button({
       label: "Add chat",
       className: "add-chat-button",
@@ -41,14 +48,23 @@ export class ChatsPage extends Block {
         events: {
           click: (e: any) => {
             e.preventDefault();
+            const input: any = document.querySelector("#chatName");
+            const chatName = input.value;
+            onSubmit(e, "chat-validated-input");
 
-            this.hide();
+            if (chatName !== "") {
+              ChatsController.create(chatName);
+              input.value = "";
+              (this.children.addChatPopup as Popup).hide();
+            }
           },
         },
       }),
       close: new Close({
         events: {
           click: () => {
+            const input: any = document.querySelector("#chatName");
+            input.value = "";
             (this.children.addChatPopup as Popup).hide();
           },
         },
@@ -56,9 +72,9 @@ export class ChatsPage extends Block {
       content: new Input({
         label: "",
         type: "text",
-        placeholder: "chat id",
-        name: "chatId",
-        className: "avatar-validated-input",
+        placeholder: "chat name",
+        name: "chatName",
+        className: "chat-validated-input",
       }),
     });
 

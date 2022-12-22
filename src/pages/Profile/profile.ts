@@ -13,6 +13,7 @@ import Popup from "../../components/Popup";
 import Input from "../../components/Input";
 import Avatar from "../../components/Avatar";
 import Close from "../../components/Close";
+import Link from "../../components/Link";
 
 interface IProfilePageBase {
   fields: Block[];
@@ -44,20 +45,12 @@ export class ProfilePageBase extends Block {
     await AuthController.fetchUser();
   }
 
-  // private createFields(props: any) {
-  //   return props.map((data) => {
-  //     return new Input({
-  //       ...data,
-  //       events: {
-  //         click: () => {
-  //           ChatsController.selectChat(data.id);
-  //         },
-  //       },
-  //     });
-  //   });
-  // }
-
   init() {
+    this.children.backButton = new Link({
+      path: "/messenger",
+      text: "<~",
+      className: "back-button",
+    });
     this.children.avatar = new Avatar({
       photo:
         this.props.avatar === null
@@ -69,7 +62,6 @@ export class ProfilePageBase extends Block {
         },
       },
     });
-    // this.children.fieldsNew = this.createFields(this.props);
     this.children.fields = new Fields({
       fields: [
         new Field({
@@ -161,7 +153,7 @@ export class ProfilePageBase extends Block {
             formData.append("avatar", input?.files[0]);
 
             UserController.updateAvatar(formData);
-            this.hide();
+            (this.children.popup as Popup).hide();
           },
         },
       }),

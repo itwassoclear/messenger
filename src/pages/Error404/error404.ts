@@ -8,7 +8,7 @@ export class Error404 extends Block {
     super({});
   }
 
-  protected initChildren(): void {
+  protected init(): void {
     this.children.error = new Error({
       number: "404",
       text: "This page doesn’t exist",
@@ -17,6 +17,6 @@ export class Error404 extends Block {
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, { ...this.props });
   }
 }

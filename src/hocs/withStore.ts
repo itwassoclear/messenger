@@ -44,7 +44,7 @@ export function withStore<SP>(mapStateToProps: (state: IState) => SP) {
         let previousState = mapStateToProps(store.getState());
 
         super({ ...(props as P), ...previousState });
-
+        // console.log("store", store);
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapStateToProps(store.getState());
 

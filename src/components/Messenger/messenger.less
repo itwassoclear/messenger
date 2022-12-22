@@ -47,19 +47,53 @@
   line-height: 33px;
 }
 
-.settings {
-  color: @color-text;
-  border: none;
-  background-color: transparent;
-  font-weight: 900;
+.settings-button {
+  width: 32px;
+  height: 32px;
+  margin: 0 20px 0 0;
   font-size: 20px;
-  margin-right: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  background: none;
+  color: @color-text-gray;
 
   &:hover {
     opacity: 0.7;
+    background: none;
   }
+}
+
+.add-user-button,
+.delete-user-button {
+  background-color: transparent;
+  font-size: 12px;
+  max-width: 160px;
+  width: 100px;
+  background-color: #0000;
+  font-size: 12px;
+  padding: 0 0 0 8px;
+  justify-content: flex-start;
+  margin-left: 50px;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.add-user-button::before {
+  content: "";
+  background-image: url("../../../static/icons/add.svg");
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 20px;
+}
+
+.delete-user-button::before {
+  content: "";
+  background-image: url("../../../static/icons/delete.svg");
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 20px;
 }
 
 .new-message {
@@ -81,11 +115,12 @@
   flex-wrap: wrap;
 }
 
-.attach {
+.attach-button {
+  display: none; // attach doesn't work now
   background-color: transparent;
   border: none;
   cursor: pointer;
-  margin: 0 10px 0 20px;
+  margin: 0 0 0 20px;
   padding: 0;
   height: 32px;
   width: 32px;
@@ -94,6 +129,7 @@
 
   &:hover {
     opacity: 0.7;
+    background-color: transparent;
   }
 }
 
@@ -115,7 +151,6 @@
 .attach-popup-line,
 .settings-popup-line {
   height: 40px;
-  padding: 0 0 0 16px;
   color: white;
   font-size: 12px;
   display: flex;
@@ -164,7 +199,7 @@
   color: @color-text-gray;
   display: flex;
   flex-direction: column;
-  margin: 0 20px 30px;
+  margin: 30px 20px 30px;
   justify-content: flex-start;
   width: calc(100% - 40px);
   height: calc(100% - 140px);
@@ -178,45 +213,11 @@
   margin: 0 0 16px;
 }
 
-.text-message {
-  padding: 11px 13px;
-  background-color: @color-bg-black;
-  color: @color-text;
-  border-radius: @border-radius;
-  margin: 0 0 16px;
-  font-size: 12px;
-  max-width: 400px;
-  width: max-content;
-  padding: 11px 11px 11px 14px;
-  display: flex;
-}
-
-.from-me {
-  align-self: flex-end;
-  background-color: @color-purple;
-}
-
-.time-message {
-  font-size: 9px;
-  color: @color-text-gray;
-  margin: 0;
-  padding: 8px 6px 0px 8px;
-  align-self: flex-end;
-}
-
-.read {
-  color: @color-purple-hover;
-  padding: 8px 0 0 8px;
-  &::before {
-    content: url(../../../static/icons/v.svg);
-    margin-right: 4px;
-  }
-}
-
 .chat-plug {
   margin: auto;
 }
 
 .message-input-block {
   width: 100%;
+  margin: 0 0 0 20px;
 }

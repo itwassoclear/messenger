@@ -14,8 +14,24 @@ export class RegistrationPage extends Block {
     super({});
   }
 
-  protected initChildren(): void {
+  protected init(): void {
     this.children.form = new Form({
+      name: "Registration",
+      button: new Button({
+        label: "Register",
+        events: {
+          click: (e: Event): void => {
+            const data = onSubmit(e, "validated-input");
+            AuthController.signup(data as ISignupData);
+          },
+        },
+      }),
+      link: new Link({
+        path: "/",
+        text: "Log in here",
+      }),
+      linkText: "Already with us? ",
+      buttonsClass: "buttons-registration",
       inputs: [
         new Input({
           label: "email",
@@ -74,22 +90,6 @@ export class RegistrationPage extends Block {
           className: "validated-input",
         }),
       ],
-      name: "Registration",
-      button: new Button({
-        label: "Register",
-        events: {
-          click: (e: Event): void => {
-            const data = onSubmit(e, "validated-input");
-            AuthController.signup(data as ISignupData);
-          },
-        },
-      }),
-      link: new Link({
-        path: "/",
-        text: "Log in here",
-      }),
-      linkText: "Already with us? ",
-      buttonsClass: "buttons-registration",
     });
   }
 

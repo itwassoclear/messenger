@@ -20,98 +20,42 @@ export interface IMessage {
 }
 
 export class MessagesController {
-  private transports: Record<number, WSTransport> = {};
+  private transports: Map<number, WSTransport> = new Map();
 
-  async connect(id: number) {
-    if (this.transports[id]) {
+  async connect(id: number, token: string) {
+    if (this.transports.has(id)) {
       return;
     }
 
-    const token = await ChatsController.getToken(id);
     const userId = store.getState().user.id;
 
     const transport = new WSTransport(
       `wss://ya-praktikum.tech/ws/chats/${userId}/${id}/${token}`
     );
 
-    await transport.connect(); // await
+    this.transports.set(id, transport);
 
-    transport.on(
-      WSTransportEvents.Message,
-      this.onMessageReceived.bind(this, id)
-    );
-    transport.on(
-      WSTransportEvents.Close,
-      this.onConnectionClosed.bind(this, id)
-    );
+    await transport.connect();
 
-    this.transports[id] = transport;
-
+    this.subscribe(transport, id);
     this.fetchOldMessages(id);
   }
 
   async sendMessage(id: number, message: string) {
-    const transport = this.transports[id];
+    const transport = this.transports.get(id);
 
     if (!transport) {
-      // throw new Error(`Chat ${id} is not connected`);
-      this.connect(id);
+      throw new Error(`Chat ${id} is not connected`);
     }
 
-    transport.send({
+    transport!.send({
       type: "message",
       content: message,
     });
   }
 
-  onMessageReceived(chatId: number, messages: IMessage | IMessage[]) {
-    // let type;
-    // if (Array.isArray(message)) {
-    //   type = "message";
-    // } else {
-    //   type = message.type;
-    // }
-
-    // const messagesState = store.getState().messages;
-    // // console.log("messagesState", messagesState, chatId);
-    // const oldMessages = messagesState ? messagesState[chatId] : [];
-    // // console.log("oldMessages", oldMessages);
-
-    // switch (type) {
-    //   case "message":
-    //     // store.set(`messages.${chatId}`, [...oldMessages, message]);
-    //     store.set(`messages.${chatId}`, message);
-    //     break;
-
-    //   case "messages":
-    //     store.set(`messages.${chatId}`, [
-    //       ...oldMessages,
-    //       ...(message as IMessage[]).reverse(),
-    //     ]);
-    //     break;
-    // }
-
-    let messagesToAdd: IMessage[] = [];
-
-    if (Array.isArray(messages)) {
-      messagesToAdd = messages.reverse();
-    } else {
-      messagesToAdd.push(messages);
-    }
-
-    const currentMessages = (store.getState().messages || {})[chatId] || [];
-
-    messagesToAdd = [...currentMessages, ...messagesToAdd];
-
-    store.set(`messages.${chatId}`, messagesToAdd);
-  }
-
-  onConnectionClosed(id: number) {
-    delete this.transports[id];
-  }
-
   fetchOldMessages(id: number) {
-    const transport = this.transports[id];
+    const transport = this.transports.get(id);
 
     if (!transport) {
       throw new Error(`Chat ${id} is not connected`);
@@ -121,36 +65,36 @@ export class MessagesController {
   }
 
   closeAll() {
-    // Array.from(this.transports.values()).forEach((socket) => socket.close());
     Object.values(this.transports).forEach((transport) => transport.close());
   }
 
-  // private onMessage(id: number, messages: IMessage | IMessage[]) {
-  //   let messagesToAdd: IMessage[] = [];
+  private onMessage(id: number, messages: IMessage | IMessage[]) {
+    let messagesToAdd: IMessage[] = [];
 
-  //   if (Array.isArray(messages)) {
-  //     messagesToAdd = messages.reverse();
-  //   } else {
-  //     messagesToAdd.push(messages);
-  //   }
+    if (Array.isArray(messages)) {
+      messagesToAdd = messages.reverse();
+    } else {
+      messagesToAdd.push(messages);
+    }
 
-  //   const currentMessages = (store.getState().messages || {})[id] || [];
+    const currentMessages = (store.getState().messages || {})[id] || [];
 
-  //   messagesToAdd = [...currentMessages, ...messagesToAdd];
+    messagesToAdd = [...currentMessages, ...messagesToAdd];
 
-  //   store.set(`messages.${id}`, messagesToAdd);
-  // }
+    store.set(`messages.${id}`, messagesToAdd);
+    ChatsController.fetchChats();
+  }
 
-  // private onClose(id: number) {
-  //   this.transports.delete(id);
-  // }
+  private onClose(id: number) {
+    this.transports.delete(id);
+  }
 
-  // private subscribe(transport: WSTransport, id: number) {
-  //   transport.on(WSTransportEvents.Message, (message) =>
-  //     this.onMessage(id, message)
-  //   );
-  //   transport.on(WSTransportEvents.Close, () => this.onClose(id));
-  // }
+  private subscribe(transport: WSTransport, id: number) {
+    transport.on(WSTransportEvents.Message, (message) =>
+      this.onMessage(id, message)
+    );
+    transport.on(WSTransportEvents.Close, () => this.onClose(id));
+  }
 }
 
 const messagesController = new MessagesController();

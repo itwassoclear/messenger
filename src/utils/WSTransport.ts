@@ -23,26 +23,25 @@ export default class WSTransport extends EventBus {
     this.socket.send(JSON.stringify(data));
   }
 
-  public connect() {
-    // : Promise<void>
+  public connect(): Promise<void> {
     this.socket = new WebSocket(this.url);
 
     this.subscribe(this.socket);
 
-    // this.setupPing();
+    this.setupPing();
 
-    // return new Promise((resolve) => {
-    //   this.on(WSTransportEvents.Connected, () => {
-    //     resolve();
-    //   });
-    // });
-    return new Promise<void>((resolve, reject) => {
-      this.socket!.addEventListener("open", () => {
-        this.setupPing();
+    return new Promise((resolve) => {
+      this.on(WSTransportEvents.Connected, () => {
         resolve();
       });
-      this.socket!.addEventListener("close", reject);
     });
+    // return new Promise<void>((resolve, reject) => {
+    //   this.socket!.addEventListener("open", () => {
+    //     this.setupPing();
+    //     resolve();
+    //   });
+    //   this.socket!.addEventListener("close", reject);
+    // });
   }
 
   public close() {
