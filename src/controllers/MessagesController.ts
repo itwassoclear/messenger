@@ -99,7 +99,4 @@ export class MessagesController {
 
 const messagesController = new MessagesController();
 
-// @ts-ignore
-window.messagesController = messagesController;
-
 export default messagesController;

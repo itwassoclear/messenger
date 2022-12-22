@@ -35,13 +35,6 @@ export default class WSTransport extends EventBus {
         resolve();
       });
     });
-    // return new Promise<void>((resolve, reject) => {
-    //   this.socket!.addEventListener("open", () => {
-    //     this.setupPing();
-    //     resolve();
-    //   });
-    //   this.socket!.addEventListener("close", reject);
-    // });
   }
 
   public close() {

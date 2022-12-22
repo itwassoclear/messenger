@@ -49,6 +49,5 @@ export function onSubmit(e: Event, inputClass: string) {
     values[name] = value;
   });
 
-  // console.log(values); // вывод в консоль данных из инпутов
   return values;
 }

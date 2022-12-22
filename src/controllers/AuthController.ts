@@ -10,7 +10,7 @@ class AuthController {
   async signin(data: ISigninData) {
     try {
       await this.api.signin(data);
-      await this.fetchUser(); // await
+      await this.fetchUser();
 
       store.set("user.error", undefined);
 
@@ -51,12 +51,6 @@ class AuthController {
     store.set("chats", chats);
   }
 
-  // async selectChat(id: number) {
-  //   store.set("selectedChat", id);
-
-  // createConnetion()
-  // }
-
   async fetchUser() {
     const user = await this.api.read();
 
@@ -72,12 +66,6 @@ class AuthController {
     } catch (e: any) {
       console.error(e.message);
     }
-
-    // await this.request(async () => {
-    //   await this.api.logout();
-
-    //   router.go("/");
-    // });
   }
 }
 

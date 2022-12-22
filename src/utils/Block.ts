@@ -27,7 +27,6 @@ export class Block<P extends Record<string, any> = any> {
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
 
     this.children = children;
-    // this.initChildren();
     this.props = this._makePropsProxy(props);
 
     this.eventBus = () => eventBus;
@@ -43,16 +42,6 @@ export class Block<P extends Record<string, any> = any> {
     const props: Record<string, unknown> = {};
     const children: Record<string, Block> | Record<string, Block[]> = {};
     Object.entries(childrenAndProps).forEach(([key, value]) => {
-      // if (value instanceof Block) {
-      //   children[key as string] = value;
-      // } else if (
-      //   Array.isArray(value) &&
-      //   value.every((v) => v instanceof Block)
-      // ) {
-      //   children[key] = value;
-      // } else {
-      //   props[key] = value;
-      // }
       if (
         Array.isArray(value) &&
         value.length > 0 &&
@@ -155,19 +144,6 @@ export class Block<P extends Record<string, any> = any> {
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
-      // if (Array.isArray(component)) {
-      //   component.forEach((val) => {
-      //     if (!contextAndStubs[name]) {
-      //       contextAndStubs[name] = `<div data-id='${val.id}'></div>`;
-      //     } else {
-      //       contextAndStubs[
-      //         name
-      //       ] = `${contextAndStubs[name]}<div data-id='${val.id}'></div>`;
-      //     }
-      //   });
-      //   return;
-      // }
-
       contextAndStubs[name] = `<div data-id='${component.id}'></div>`;
       if (Array.isArray(component)) {
         contextAndStubs[name] = component.map(
@@ -183,27 +159,6 @@ export class Block<P extends Record<string, any> = any> {
     const temp = document.createElement("template");
 
     temp.innerHTML = html;
-
-    // Object.entries(this.children).forEach(([_, component]) => {
-    //   let stub;
-    //   if (Array.isArray(component)) {
-    //     component.forEach((val) => {
-    //       stub = temp.content.querySelector(`[data-id='${val.id}']`);
-    //       if (!stub) {
-    //         return;
-    //       }
-
-    //       stub.replaceWith(val.getContent()!);
-    //     });
-    //   } else {
-    //     stub = temp.content.querySelector(`[data-id='${component.id}']`);
-    //     if (!stub) {
-    //       return;
-    //     }
-
-    //     stub.replaceWith(component.getContent()!);
-    //   }
-    // });
 
     const replaceStub = (component: Block) => {
       const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
@@ -227,8 +182,6 @@ export class Block<P extends Record<string, any> = any> {
 
     return temp.content;
   }
-
-  // protected initChildren() {}
 
   public getContent() {
     return this.element;

@@ -8,7 +8,7 @@ class ChatsController {
   async create(title: string) {
     await this.api.create(title);
 
-    await this.fetchChats(); // await
+    await this.fetchChats();
   }
 
   async fetchChats() {
@@ -49,8 +49,5 @@ class ChatsController {
 }
 
 const chatsController = new ChatsController(new ChatsAPI());
-
-// @ts-ignore
-window.chatsController = chatsController;
 
 export default chatsController;
