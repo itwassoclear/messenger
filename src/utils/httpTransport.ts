@@ -1,5 +1,3 @@
-import { queryStringify } from "./helpers";
-
 enum Method {
   GET = "GET",
   POST = "POST",

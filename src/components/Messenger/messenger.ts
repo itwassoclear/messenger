@@ -168,8 +168,10 @@ export class MessengerBase extends Block {
           const input: any = document.querySelector("#message");
           const message = input.value;
           onSubmit(e, "validated-input");
-          MessagesController.sendMessage(this.props.selectedChat!, message);
-          input.value = "";
+          if (message !== "") {
+            MessagesController.sendMessage(this.props.selectedChat!, message);
+            input.value = "";
+          }
         },
       },
     });

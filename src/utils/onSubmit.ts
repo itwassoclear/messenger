@@ -30,6 +30,9 @@ export function onSubmit(e: Event, inputClass: string) {
 
     if (name === "message") {
       windowError!.textContent = "message is empty";
+      setTimeout(() => {
+        windowError!.style.display = "none";
+      }, 3000);
     }
     return !pattern[name].regExp.test(value);
   });

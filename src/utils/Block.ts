@@ -125,6 +125,8 @@ export class Block<P extends Record<string, any> = any> {
   }
 
   private _render() {
+    this._removeEvents();
+
     const fragment = this.render();
     const newElement = fragment.firstElementChild as HTMLElement;
 
@@ -206,6 +208,15 @@ export class Block<P extends Record<string, any> = any> {
         throw new Error("Нет доступа");
       },
     });
+  }
+
+  private _removeEvents() {
+    const { events = {} } = this.props as P & {
+      events: Record<string, () => void>;
+    };
+    Object.keys(events).forEach((eventName) =>
+      this._element?.removeEventListener(eventName, events[eventName])
+    );
   }
 
   public show() {
