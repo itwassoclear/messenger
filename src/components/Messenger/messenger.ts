@@ -193,7 +193,14 @@ export class MessengerBase extends Block {
   }
 
   render() {
-    return this.compile(template, { ...this.props });
+    const chat = this.props.chats.filter(
+      (chat: Record<string, number>) => chat.id === this.props.selectedChat
+    );
+
+    return this.compile(template, {
+      ...this.props,
+      title: chat[0]?.title,
+    });
   }
 }
 
