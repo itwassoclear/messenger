@@ -1,66 +1,91 @@
 import { Block } from "../../utils/Block";
-import Preview from "../../components/Preview";
-import Chat from "../../components/Chat";
+import ChatsList from "../../components/ChatsList";
 import template from "./chats.hbs";
 import "./chats.less";
+import Messenger from "../../components/Messenger";
+import AuthController from "../../controllers/AuthController";
+import ChatsController from "../../controllers/ChatsController";
+import Popup from "../../components/Popup";
 import Button from "../../components/Button";
+import Close from "../../components/Close";
+import Input from "../../components/Input";
 import { onSubmit } from "../../utils/onSubmit";
+import Link from "../../components/Link";
 
 export class ChatsPage extends Block {
   constructor() {
-    super();
+    super({});
   }
 
-  protected initChildren(): void {
-    this.children.preview = new Preview({
-      previews: [
-        new Chat({
-          avatar: "",
-          name: "Sasha",
-          from: "Me: ",
-          message: "круто!",
-          date: "15:04",
-          newMessages: "",
-        }),
-        new Chat({
-          avatar: "",
-          name: "Peter",
-          from: "",
-          message: "Мы будем ждать тебя на первом этаже",
-          date: "16:10",
-          newMessages: "1",
-        }),
-        new Chat({
-          avatar: "",
-          name: "Anna",
-          from: "",
-          message: "Спасибо! До встречи",
-          date: "10:07",
-          newMessages: "",
-        }),
-        new Chat({
-          avatar: "",
-          name: "Tanya",
-          from: "",
-          message: "Я доделываю :) Скоро пришлю",
-          date: "11:55",
-          newMessages: "",
-        }),
-      ],
+  protected init(): void {
+    ChatsController.fetchChats();
+    AuthController.fetchUser();
+
+    this.children.chatsList = new ChatsList({
+      isLoaded: false,
     });
-    this.children.sendButton = new Button({
-      label: "~>",
-      type: "submit",
-      className: "send",
+    this.children.messenger = new Messenger({});
+    this.children.link = new Link({
+      path: "/settings",
+      text: "Profile >",
+      className: "link-to-profile",
+    });
+    this.children.addChatButton = new Button({
+      label: "Add chat",
+      className: "add-chat-button",
       events: {
-        click: (e): void => {
-          onSubmit(e);
+        click: () => {
+          (this.children.addChatPopup as Popup).show();
         },
       },
+    });
+
+    this.children.addChatPopup = new Popup({
+      title: "Add new chat",
+      button: new Button({
+        label: "Add",
+        type: "submit",
+        events: {
+          click: (e: any) => {
+            e.preventDefault();
+            const input: any = document.querySelector("#chatName");
+            const chatName = input.value;
+            onSubmit(e, "chat-validated-input");
+
+            if (chatName !== "") {
+              ChatsController.create(chatName);
+              input.value = "";
+              (this.children.addChatPopup as Popup).hide();
+            }
+          },
+        },
+      }),
+      close: new Close({
+        events: {
+          click: () => {
+            const input: any = document.querySelector("#chatName");
+            input.value = "";
+            (this.children.addChatPopup as Popup).hide();
+          },
+        },
+      }),
+      content: new Input({
+        label: "",
+        type: "text",
+        placeholder: "chat name",
+        name: "chatName",
+        className: "chat-validated-input",
+      }),
+    });
+
+    ChatsController.fetchChats().finally(() => {
+      (this.children.chatsList as Block).setProps({
+        isLoaded: true,
+      });
     });
   }
 
   render() {
-    return this.compile(template, {});
+    return this.compile(template, { ...this.props });
   }
 }

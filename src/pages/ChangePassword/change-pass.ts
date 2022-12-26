@@ -5,20 +5,20 @@ import template from "./change-pass.hbs";
 import "./change-pass.less";
 import Button from "../../components/Button";
 import { onSubmit } from "../../utils/onSubmit";
+import UserController from "../../controllers/UserController";
 
-interface IProfile {
-  name: string;
+interface IChangePassword {
   fields: Block[];
-  button: Block;
+  saveButton?: Block;
 }
 
-export class ChangePasswordPage extends Block {
-  constructor(props?: IProfile) {
+export class ChangePassword extends Block {
+  constructor(props: IChangePassword) {
     const events = {};
     super({ ...props, events });
   }
 
-  protected initChildren(): void {
+  protected init(): void {
     this.children.fields = new Fields({
       fields: [
         new Field({
@@ -26,30 +26,30 @@ export class ChangePasswordPage extends Block {
           isData: false,
           label: "old password",
           type: "password",
-          value: "qwertyasdF1",
+          value: "",
           placeholder: "old password",
-          name: "password",
-          className: "validated-input",
+          name: "oldPassword",
+          className: "password-validated-input",
         }),
         new Field({
           isInput: true,
           isData: false,
           label: "new password",
           type: "password",
-          value: "qwertyasdF123",
+          value: "",
           placeholder: "new password",
-          name: "password",
-          className: "validated-input",
+          name: "newPassword",
+          className: "password-validated-input",
         }),
         new Field({
           isInput: true,
           isData: false,
           label: "repeat new password",
           type: "password",
-          value: "qwertyasdF123",
+          value: "",
           placeholder: "repeat new password",
-          name: "password",
-          className: "validated-input",
+          name: "repeat_password",
+          className: "password-validated-input",
         }),
       ],
     });
@@ -58,7 +58,14 @@ export class ChangePasswordPage extends Block {
       className: "save-button",
       events: {
         click: (e: Event): void => {
-          onSubmit(e);
+          const data = onSubmit(e, "password-validated-input");
+          UserController.updatePassword(data as any);
+
+          const profileBlock = document.querySelector(
+            ".profile_block"
+          ) as HTMLElement;
+          profileBlock.style.display = "flex";
+          this.hide();
         },
       },
     });

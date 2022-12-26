@@ -13,9 +13,11 @@ export const validate = (
 
   if (isValid) {
     if (event.type === "focusout") {
+      if (input.name === "message") return;
       error!.textContent = "";
     }
   } else {
+    if (input.name === "message") return;
     error!.textContent = pattern[input.name].error;
   }
 };

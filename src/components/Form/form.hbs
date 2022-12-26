@@ -1,7 +1,9 @@
 <form class="fields">
   <h3 class="title">{{ name }}</h3>
 
-  {{{ inputs }}}
+  {{#each inputs}}
+  {{{this}}}
+  {{/each}}
 
   <div class="buttons {{ buttonsClass }}">
     {{{ button }}}

@@ -14,7 +14,7 @@ interface IFields {
 export class Fields extends Block {
   constructor(props: IFields) {
     const events = {
-      submit: (e: Event) => onSubmit(e),
+      submit: (e: Event, className: string) => onSubmit(e, className),
     };
     super({ ...props, events });
   }

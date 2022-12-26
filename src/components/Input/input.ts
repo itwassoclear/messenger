@@ -7,9 +7,11 @@ interface IInput {
   label: string;
   type: string;
   name: string;
-  value: string;
+  value?: string;
   placeholder: string;
   className?: string;
+  noError?: boolean;
+  divClass?: string;
   events?: {
     focusin: (e: Event) => void;
     focusout: (e: Event) => void;

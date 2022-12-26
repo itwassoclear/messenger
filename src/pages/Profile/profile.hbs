@@ -1,22 +1,19 @@
 <div id="profile">
   <div class="back_block">
-    <a href="../Chats/chats.hbs"><button class="back-button">
-        <~ </button></a>
+    {{{ backButton }}}
   </div>
+
   <div class="profile_block">
-    <div class="profile-avatar">
-      <div class="plug">
-        <p class="avatar-text">
-          Change avatar
-        </p>
-        <div class="circle"></div>
-      </div>
-    </div>
 
-    <p class="profile-name">Maria</p>
+    {{{ avatar }}}
+    <p class="profile-name">{{ first_name }}</p>
 
-    <div class="data">
+    <div class="data main-fields">
       {{{ fields }}}
+
+      {{#each fieldsNew}}
+      {{{this}}}
+      {{/each}}
     </div>
 
     <div class="profile-buttons">
@@ -32,4 +29,10 @@
     </div>
 
   </div>
+
+  {{{ popup }}}
+
+  {{{ editProfile }}}
+
+  {{{ changePassword }}}
 </div>

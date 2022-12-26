@@ -6,14 +6,32 @@ import { Block } from "../../utils/Block";
 import template from "./registration.hbs";
 import "./registration.less";
 import { onSubmit } from "../../utils/onSubmit";
+import AuthController from "../../controllers/AuthController";
+import { ISignupData } from "../../utils/types";
 
 export class RegistrationPage extends Block {
   constructor() {
-    super();
+    super({});
   }
 
-  protected initChildren(): void {
+  protected init(): void {
     this.children.form = new Form({
+      name: "Registration",
+      button: new Button({
+        label: "Register",
+        events: {
+          click: (e: Event): void => {
+            const data = onSubmit(e, "validated-input");
+            AuthController.signup(data as ISignupData);
+          },
+        },
+      }),
+      link: new Link({
+        path: "/",
+        text: "Log in here",
+      }),
+      linkText: "Already with us? ",
+      buttonsClass: "buttons-registration",
       inputs: [
         new Input({
           label: "email",
@@ -72,21 +90,6 @@ export class RegistrationPage extends Block {
           className: "validated-input",
         }),
       ],
-      name: "Registration",
-      button: new Button({
-        label: "Register",
-        events: {
-          click: (e: Event): void => {
-            onSubmit(e);
-          },
-        },
-      }),
-      link: new Link({
-        path: "../Login/login.hbs",
-        text: "Log in here",
-      }),
-      linkText: "Already with us? ",
-      buttonsClass: "buttons-registration",
     });
   }
 
