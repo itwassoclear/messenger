@@ -28,6 +28,7 @@
     "no-lonely-if": "off",
     "no-return-assign": "off",
     "no-else-return": "off",
+    "no-new": "off",
 
     "arrow-parens": "off",
     "indent": "off",
@@ -51,6 +52,8 @@
     "max-classes-per-file": "off",
     "prefer-const": "off",
     "consistent-return": "off",
-    "default-case": "off"
+    "default-case": "off",
+    "one-var": "off",
+    "one-var-declaration-per-line": "off"
   }
 }

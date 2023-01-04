@@ -181,7 +181,7 @@ export class ProfilePageBase extends Block {
     (this.children.avatar as Avatar).setProps({
       photo:
         newProps.avatar === null
-          ? "../../../static/icons/image-black.svg"
+          ? "../../../static/image-black.svg"
           : `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
     });
 

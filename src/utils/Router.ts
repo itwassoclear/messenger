@@ -61,6 +61,11 @@ class Router {
     this._onRoute(window.location.pathname);
   }
 
+  public reset() {
+    this._routes = [];
+    this._currentRoute = null;
+  }
+
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
 

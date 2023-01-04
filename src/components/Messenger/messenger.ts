@@ -80,7 +80,6 @@ export class MessengerBase extends Block {
             const input: any = document.querySelector("#addUserId");
             const userId = input.value;
             onSubmit(e, "add-user-validated-input");
-            console.log("userId", userId);
             if (userId !== "") {
               ChatsController.addUserToChat(this.props.selectedChat, userId);
               input.value = "";
