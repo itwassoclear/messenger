@@ -227,3 +227,5 @@ export class Block<P extends Record<string, any> = any> {
     this.getContent()!.style.display = "none";
   }
 }
+
+export type BlockType = typeof Block;

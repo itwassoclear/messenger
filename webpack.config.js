@@ -74,6 +74,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isDev ? "[name].[contenthash].less" : "[name].less",
     }),
-    new FaviconsWebpackPlugin("./static/favicon.ico"), // svg works too!
+    // new FaviconsWebpackPlugin("./static/favicon.ico"),
   ],
 };

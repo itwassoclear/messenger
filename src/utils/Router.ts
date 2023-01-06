@@ -3,12 +3,16 @@ import { renderDOM } from "./renderDOM";
 import { Block } from "./Block";
 import Error404 from "../pages/Error404";
 
+export interface BlockConstructable<P extends Record<string, any> = any> {
+  new (props: P): Block<P>;
+}
+
 export class Route {
   private _block: Block | null = null;
 
   constructor(
     private _pathname: string,
-    private _blockClass: typeof Block,
+    private _blockClass: BlockConstructable,
     private readonly _query: string
   ) {}
 
@@ -44,7 +48,7 @@ class Router {
     Router.__instance = this;
   }
 
-  public use(pathname: string, block: typeof Block) {
+  public use(pathname: string, block: BlockConstructable) {
     const route = new Route(pathname, block, this._rootQuery);
 
     this._routes.push(route);

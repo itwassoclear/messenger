@@ -8,6 +8,7 @@ UI is inspired by the font [JetBrains Mono](https://www.jetbrains.com/lp/mono/).
 sprint 1: added layout with Handlebars
 sprint 2: added simple routing and form validation. created reusable components
 sprint 3: added API for authorization, registration and user settings. Websockets for chats and messages, store to update components
+sprint 4: using Mocha and Chai added tests for component, router, and request sending module. used Docker and Render.com for deploy the app
 
 ## Stack
 
