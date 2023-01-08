@@ -50,6 +50,4 @@ document.addEventListener("DOMContentLoaded", async () => {
       Router.go(Routes.Index);
     }
   }
-
-  // Router.start();
 });

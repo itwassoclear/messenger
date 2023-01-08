@@ -2,7 +2,7 @@
   {{#if selectedChat}}
   <div class="chat-header">
     <div class="user">
-      <div class="small-avatar"></div>
+      <div class="small-avatar" style="background-image: url('{{ avatar }}')"></div>
       <h3 class="user-name">{{ title }}</h3>
     </div>
     {{{ settingsButton }}}
@@ -26,7 +26,7 @@
     {{/each}}
   </div>
 
-  {{{ attachPopup }}}
+  {{!-- {{{ attachPopup }}}
   <div class="attach-popup">
     <div class="attach-popup-line">
       <img src="../../../static/icons/image.svg" alt="image">
@@ -40,7 +40,7 @@
       <img src="../../../static/icons/location.svg" alt="location">
       <p class="popup-text">Location</p>
     </div>
-  </div>
+  </div> --}}
 
   <div class="new-message">
     {{{ attachButton }}}
