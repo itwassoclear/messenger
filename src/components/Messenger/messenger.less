@@ -33,7 +33,7 @@
 .small-avatar {
   width: 34px;
   height: 34px;
-  background-color: @color-bg;
+  // background-color: @color-bg;
   border-radius: 50%;
   margin-right: 16px;
   margin: 0 16px 0 20px;
@@ -203,6 +203,16 @@
   justify-content: flex-start;
   width: calc(100% - 40px);
   height: calc(100% - 140px);
+  overflow-y: scroll;
+}
+
+.chat-feed::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-feed {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .chat-date {

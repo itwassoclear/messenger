@@ -41,5 +41,5 @@ describe("HTTPTransport", () => {
     const [request] = requests;
 
     expect(request.method).to.eq("POST");
-});
+  });
 });
