@@ -8,25 +8,25 @@ const eventBusMock = {
   emit: sinon.fake(),
 };
 
-const { default: Block } = proxyquire("./Block", {
+const { Block } = proxyquire("./Block", {
   "./EventBus": {
     EventBus: class {
       emit = eventBusMock.emit;
       on = eventBusMock.on;
     },
   },
-}) as { default: typeof BlockType };
+}) as { Block: typeof BlockType };
 
-// describe("Block", () => {
-//   class ComponentMock extends Block {
-//     constructor(props: any) {
-//       super(props);
-//     }
-//   }
+describe("Block", () => {
+  class ComponentMock extends Block {
+    constructor(props: any) {
+      super(props);
+    }
+  }
 
-//   it("should fire init event on initialization", () => {
-//     new ComponentMock({});
+  it("should fire init event on initialization", () => {
+    new ComponentMock({});
 
-//     expect(eventBusMock.emit.calledWith("init")).to.eq(true);
-//   });
-// });
+    expect(eventBusMock.emit.calledWith("init")).to.eq(true);
+  });
+});
