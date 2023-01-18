@@ -199,6 +199,7 @@ export class MessengerBase extends Block {
     return this.compile(template, {
       ...this.props,
       title: chat[0]?.title,
+      avatar: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
     });
   }
 }

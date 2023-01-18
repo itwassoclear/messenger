@@ -10,6 +10,7 @@ interface IChat {
   unread_count: number;
   selectedChat: IChatInfo;
   last_message: Record<string, string>;
+  avatar: string;
   events: {
     click: () => void;
   };
@@ -30,6 +31,7 @@ export class ChatBase extends Block<IChat> {
       ...this.props,
       isSelected: this.props.id === this.props.selectedChat?.id,
       // isMine: true,
+      avatar: `https://ya-praktikum.tech/api/v2/resources${this.props.avatar}`,
       time,
     });
   }
