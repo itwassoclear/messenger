@@ -2,8 +2,10 @@
 
 ## What is this?
 
-Messenger project. Now it's only layout from [Figma](https://www.figma.com/file/gsvfLgmxRtYrGRpZFuhWJF/Chat?node-id=0%3A1).
+Messenger project. [Figma layout](https://www.figma.com/file/gsvfLgmxRtYrGRpZFuhWJF/Chat?node-id=0%3A1).
 UI is inspired by the font [JetBrains Mono](https://www.jetbrains.com/lp/mono/).
+
+<img width="487" alt="Screenshot 2023-10-03 at 14 01 15" src="https://github.com/itwassoclear/messenger/assets/27809896/3993238b-c289-4af5-b526-c67b18e5c0c9">
 
 sprint 1: added layout with Handlebars
 
